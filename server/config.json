@@ -1,0 +1,6 @@
+{
+    "baseUrl":"https://m.qidian.com",
+    "categoryApi":"/category/male",
+    "bookApi":"/book",
+    "catalogApi":"/catalog"
+}
