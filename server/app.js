@@ -13,7 +13,7 @@ app.all('*', function (req, res, next) {
     }
 });
 app.use('/api', router);
-let server = app.listen(3000, "192.168.1.101", () => {
+let server = app.listen(3000, () => {
     let host = server.address().address;
     let port = server.address().port;
     console.log('app listening at http://%s:%s', host, port);
