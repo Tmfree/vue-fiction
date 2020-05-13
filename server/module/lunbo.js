@@ -1,10 +1,7 @@
+let writeData = require('../utils/writeData');
 let getLunBo = require("../request/getLunBo");
-function getLunBoModule(data = {}) {
-    return new Promise((resolve, reject) => {
-        getLunBo(data).then(res => {
-            resolve(res)
-        })
-    })
+async function getLunBoModule(data = {}) {
+    let result = await writeData(getLunBo, data, 'lunbo', true);
+    return result;
 }
-
 module.exports = getLunBoModule;

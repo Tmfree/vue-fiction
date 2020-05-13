@@ -1,10 +1,8 @@
+let writeData = require('../utils/writeData');
 let getFreeFiction = require("../request/getFreeFiction");
-function getFreeFictionModule(data = {}) {
-    return new Promise((resolve, reject) => {
-        getFreeFiction(data).then(res => {
-            resolve(res)
-        })
-    })
+async function getFreeFictionModule(data = {}) {
+    let result = await writeData(getFreeFiction, data, 'freeFiction', true);
+    return result;
 }
 
 module.exports = getFreeFictionModule;

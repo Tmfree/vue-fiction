@@ -12,6 +12,7 @@ const getArticleModule = require('../module/article');
 const getRankModule = require('../module/rank');
 const getRankDetailModule = require('../module/rankDetail');
 const getSearchModule = require('../module/search');
+//轮播
 router.get('/lunbo', (req, res) => {
     let data = {};
     getLunBo(data).then(result => {

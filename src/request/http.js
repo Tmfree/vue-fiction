@@ -1,7 +1,6 @@
 import axios from 'axios'
 const server = axios.create({
-    baseURL: process.env.VUE_APP_BASEURL,
-    timeout: 6000
+    baseURL: process.env.VUE_APP_BASEURL
 });
 // Add a request interceptor
 server.interceptors.request.use(function (config) {

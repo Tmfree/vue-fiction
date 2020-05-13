@@ -1,10 +1,8 @@
+let writeData = require('../utils/writeData');
 let getQingFiction = require("../request/getQingFiction");
-function getQingFictionModule(data = {}) {
-    return new Promise((resolve, reject) => {
-        getQingFiction(data).then(res => {
-            resolve(res)
-        })
-    })
+async function getQingFictionModule(data = {}) {
+    let result = await writeData(getQingFiction, data, 'qingFiction', true);
+    return result;
 }
 
 module.exports = getQingFictionModule;

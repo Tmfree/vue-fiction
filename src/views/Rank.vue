@@ -1,5 +1,7 @@
 <template>
-  <Rank />
+  <div class="rank-container">
+    <Rank />
+  </div>
 </template>
 
 <script>
@@ -24,4 +26,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.rank-container{
+  width: 100%;
+  height: calc(100vh - 88px);
+}
 </style>

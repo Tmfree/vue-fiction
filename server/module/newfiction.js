@@ -1,10 +1,8 @@
+let writeData = require('../utils/writeData');
 let getNewFiction = require("../request/getNewFiction");
-function getNewFictionModule(data = {}) {
-    return new Promise((resolve, reject) => {
-        getNewFiction(data).then(res => {
-            resolve(res)
-        })
-    })
+async function getNewFictionModule(data = {}) {
+    let result = await writeData(getNewFiction, data, 'newFiction', true);
+    return result;
 }
 
 module.exports = getNewFictionModule;
