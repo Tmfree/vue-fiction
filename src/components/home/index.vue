@@ -79,6 +79,9 @@ export default {
   async created() {
     this._getHomeData();
   },
+  activated(){
+     this.countDownHandle();
+  },
   mounted() {},
   methods: {
     refreshHandle() {
@@ -91,7 +94,6 @@ export default {
       await this.$store.dispatch("getFreeFiction");
       await this.$store.dispatch("getNewFiction");
       await this.$store.dispatch("getQingFiction");
-      this.countDownHandle();
       //关闭loading效果
       this.isSkeleton = false;
     },
@@ -106,7 +108,7 @@ export default {
       this.seconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
     },
     countDownHandle() {
-      this.timer = setInterval(() => {
+      let timer = setInterval(() => {
         if (this.endTime <= 0) {
           clearInterval(this.timer);
           return;
@@ -114,10 +116,11 @@ export default {
         this.endTime--;
         this.tick(this.endTime);
       }, 1000);
+      //摧毁事件
+      this.$once('hook:deactivated', () => {
+        clearInterval(timer);
+      })
     }
-  },
-  destroyed() {
-    clearInterval(this.timer);
   }
 };
 </script>
