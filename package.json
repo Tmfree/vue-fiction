@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "crypto-js": "^4.0.0",
+    "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",
     "vant": "^2.6.3",
     "vue": "^2.6.11",

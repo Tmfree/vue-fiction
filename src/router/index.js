@@ -1,5 +1,7 @@
 import Vue from "vue";
+import store from '@/store';
 import VueRouter from "vue-router";
+import { getToken } from '@/utils/auth'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -13,7 +15,7 @@ const routes = [
           isShowNav: true,
           isCloseRefresh: false,
           isStartLoadMore: false,
-          keepAlive:true
+          isLogin: false
         }
       },
       {
@@ -23,18 +25,18 @@ const routes = [
           isShowNav: true,
           isCloseRefresh: true,
           isStartLoadMore: false,
-          keepAlive:true
+          isLogin: true
         }
       },
       {
         path: 'category/detail',
-        name:"catDetail",
+        name: "catDetail",
         component: () => import("../views/CatDetail.vue"),
         meta: {
           isShowNav: true,
           isCloseRefresh: false,
           isStartLoadMore: true,
-          keepAlive:false
+          isLogin: false
         }
       },
       {
@@ -44,7 +46,7 @@ const routes = [
           isShowNav: true,
           isCloseRefresh: true,
           isStartLoadMore: false,
-          keepAlive:true
+          isLogin: false
         }
       },
       {
@@ -54,7 +56,7 @@ const routes = [
           isShowNav: true,
           isCloseRefresh: false,
           isStartLoadMore: true,
-          keepAlive:false
+          isLogin: false
         }
       },
       {
@@ -65,7 +67,7 @@ const routes = [
           isShowNav: true,
           isCloseRefresh: false,
           isStartLoadMore: false,
-          keepAlive:false
+          isLogin: false
         }
       },
       {
@@ -75,15 +77,43 @@ const routes = [
           isShowNav: false,
           isCloseRefresh: true,
           isStartLoadMore: true,
-          keepAlive:false
+          isLogin: false
         }
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import("../views/Login.vue"),
+    meta: {
+      isLogin: false
+    }
   }
 ];
 
 const router = new VueRouter({
   routes
 });
+const whiteList = ['/login'];//不需要重定向
+router.beforeEach((to, from, next) => {
+  // ...
+  let { isLogin } = to.meta;
+  if (isLogin) {
+    const hasToken = getToken();
+    if (hasToken) {
+      next();
+    } else {
+      //没有token
+      if (whiteList.indexOf(to.path) !== -1) {
+        next()
+      } else {
+        // 页面跳转
+        next(`/login?redirect=${to.path}`)
+      }
+    }
+  } else {
+    next();
+  }
+})
 
 export default router;

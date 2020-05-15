@@ -5,7 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
+    "body-parse": "^0.1.0",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
   }
 }

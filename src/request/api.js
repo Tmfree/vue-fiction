@@ -1,5 +1,15 @@
 import http from "./http";
-
+//登录
+export const postLogin = async (data) => {
+    let url = '/api/login';
+    let result = await http({
+        method:'post',
+        url,
+        data
+    })
+    return result;
+}
+//轮播
 export const getLunbo = async (data) => {
     let url = '/api/lunbo';
     let result = await http({
@@ -124,6 +134,17 @@ export const getRankDetail = async (data) => {
         method: 'get',
         url,
         params: data
+    })
+    return result;
+}
+
+//收藏
+export const postCollect = async (data) => {
+    let url = `/api/collect`;
+    let result = await http({
+        method: 'post',
+        url,
+        data
     })
     return result;
 }

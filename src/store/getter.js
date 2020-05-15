@@ -14,4 +14,7 @@ export default {
     searchKW: state => state.generalModule.searchKW,//搜索关键字
     rank: state => state.rankModule.rank,//排行榜
     rankDetail: state => state.rankModule.rankDetail,//排行榜详情
+    isLogin: state => state.userModule.isLogin,//是否登录
+    loginInfo: state => state.userModule.loginInfo,//登录信息
+    isCollect: state => state.userModule.isCollect,//收藏
 }
