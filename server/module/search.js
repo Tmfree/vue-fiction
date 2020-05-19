@@ -1,10 +1,7 @@
-let getSearch = require("../request/getSearch");
-function getSearchModule(data = {}) {
-    return new Promise((resolve, reject) => {
-        getSearch(data).then(res => {
-            resolve(res)
-        })
-    })
+let getSearch = require("../request/getSearch")
+async function getSearchModule(data = {}) {
+    let result = await getSearch(data)
+    return result
 }
 
-module.exports = getSearchModule;
+module.exports = getSearchModule

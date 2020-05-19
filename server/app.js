@@ -1,23 +1,43 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require('express')
+const bodyParser = require('body-parser')
 const app = express();
-const router = require('./router/index');
-app.use(bodyParser.urlencoded({extended:false}))  
-app.use(bodyParser.json());
-app.all('*', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-    if (req.method == 'OPTIONS') {
-        res.sendStatus(200); /让options请求快速返回/
-    }
-    else {
-        next();
-    }
-});
+const router = require('./router/index')
+const userToken = require('./utils/userToken')
+const cache = require('apicache').middleware
+const filterResCode = require('./utils/filterResCode')
+
+//跨域
+app.use((req, res, next) => {
+    res.set({
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': req.headers.origin || '*',
+        'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type,Authorization',
+        'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
+        'Content-Type': 'application/json; charset=utf-8'
+    })
+    req.method === 'OPTIONS' ? res.status(204).end() : next()
+})
+
+// body parser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// cache
+//app.use(cache('3 minutes', ((req, res) => res.statusCode === 200)))
+
+//拦截需要token验证的路由
+app.use(async (req, res, next) => {
+    let token = req.headers.authorization
+    let code = await userToken.verifyToken(token)
+    req.query.tokenCode = code
+    req.query.token = token
+    return next()
+})
 app.use('/api', router);
-let server = app.listen(3000, () => {
-    let host = server.address().address;
-    let port = server.address().port;
-    console.log('app listening at http://%s:%s', host, port);
-});
+
+const port = process.env.PORT || 3000
+const host = process.env.HOST || ''
+
+app.server = app.listen(port, host, () => {
+    console.log(`server running @ http://${host ? host : 'localhost'}:${port}`)
+})

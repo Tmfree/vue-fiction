@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "apicache": "^1.5.3",
     "axios": "^0.19.2",
     "body-parse": "^0.1.0",
     "cheerio": "^1.0.0-rc.3",

@@ -24,12 +24,12 @@
     <!--新书抢鲜-->
     <section class="fiction-wrapper">
       <NavHeader title="新书抢鲜" desc="24小时热销新书" />
-      <MList vertical :data-list="newFictionList" />
+      <MList vertical :data-list="newFictionData" />
     </section>
     <!--轻小说-->
     <section class="fiction-wrapper">
       <NavHeader title="轻小说" />
-      <MList horizontal :data-list="qingFictionList" />
+      <MList horizontal :data-list="qingFictionData" />
     </section>
     <!--精选专题-->
     <section class="fiction-wrapper">
@@ -74,13 +74,20 @@ export default {
       "freeFictionList",
       "newFictionList",
       "qingFictionList"
-    ])
+    ]),
+    newFictionData() {
+      return this.newFictionList.filter((item,index) => index < 3);
+    },
+    qingFictionData() {
+      return this.qingFictionList.filter((item,index) => index < 6);
+    }
   },
   async created() {
     this._getHomeData();
   },
-  activated(){
-     this.countDownHandle();
+  activated() {
+    this.countDownHandle();
+    this.$store.dispatch("getUserInfo");
   },
   mounted() {},
   methods: {
@@ -92,8 +99,8 @@ export default {
       await this.$store.dispatch("getLunbo");
       await this.$store.dispatch("getHotFiction");
       await this.$store.dispatch("getFreeFiction");
-      await this.$store.dispatch("getNewFiction");
-      await this.$store.dispatch("getQingFiction");
+      await this.$store.dispatch("getNewFiction", { page: 1 });
+      await this.$store.dispatch("getQingFiction", { catId: 12 });
       //关闭loading效果
       this.isSkeleton = false;
     },
@@ -117,9 +124,9 @@ export default {
         this.tick(this.endTime);
       }, 1000);
       //摧毁事件
-      this.$once('hook:deactivated', () => {
+      this.$once("hook:deactivated", () => {
         clearInterval(timer);
-      })
+      });
     }
   }
 };

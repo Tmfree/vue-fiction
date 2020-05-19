@@ -25,7 +25,7 @@ const routes = [
           isShowNav: true,
           isCloseRefresh: true,
           isStartLoadMore: false,
-          isLogin: true
+          isLogin: false
         }
       },
       {
@@ -84,7 +84,15 @@ const routes = [
   },
   {
     path: '/login',
+    name:'login',
     component: () => import("../views/Login.vue"),
+    meta: {
+      isLogin: false
+    }
+  },
+  {
+    path: '/user',
+    component: () => import("../views/Personal.vue"),
     meta: {
       isLogin: false
     }
@@ -103,7 +111,7 @@ router.beforeEach((to, from, next) => {
     if (hasToken) {
       next();
     } else {
-      //没有token
+      //不需要token
       if (whiteList.indexOf(to.path) !== -1) {
         next()
       } else {

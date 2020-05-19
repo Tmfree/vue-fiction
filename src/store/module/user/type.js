@@ -1,3 +1,6 @@
 export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
 export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 export const SET_COLLECT = 'SET_COLLECT';
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const SET_COLLECT_LIST = 'SET_COLLECT_LIST';
+export const SET_LIKE_LIST = 'SET_LIKE_LIST';

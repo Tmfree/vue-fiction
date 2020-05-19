@@ -28,7 +28,11 @@
             <van-button round block :disabled="isLogin" native-type="submit">登录</van-button>
           </div>
         </van-form>
-        <div class="collect" @click="collectHander">收藏</div>
+         <div class="info">
+           <p>仅支持此账号，后台自行修改</p>
+           <p>账号：123456</p>
+           <p>密码：123456</p>
+         </div>
       </div>
     </div>
   </div>
@@ -58,14 +62,9 @@ export default {
       this.$store.dispatch("login", data).then(res => {
         if (res.code == 0) {
           let path = this.$route.query.redirect;
-          this.$router.push({ path });
+          this.$router.push({ path, query: { from: "login" } });
         }
       });
-    },
-    collectHander() {
-      this.isCollect = !this.isCollect;
-      let data = { isCollect: this.isCollect };
-      this.$store.dispatch("collect", data);
     }
   }
 };
@@ -120,6 +119,14 @@ export default {
         font-size: 28px;
       }
     }
+  }
+}
+.info{
+  width: 100%;
+  p{
+    white-space: nowrap;
+    font-size: 28px;
+    line-height: 1.6;
   }
 }
 </style>

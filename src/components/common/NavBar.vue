@@ -9,7 +9,13 @@
         <span class="sub-title">{{navBar.leftTitle}}</span>
       </template>
       <template #right>
-        <router-link to="/search" class="search"> <van-icon name="search" size="18" color="#33373D" /></router-link>
+        <router-link to="/user" class="search" v-if="navBar.showTitle">
+          <img :src="userInfo.avatar" alt class="user" v-if="userInfo.isLogin" />
+          <van-icon name="user-o" size="18" color="#33373D" v-else />
+        </router-link>
+        <router-link to="/search" class="search" v-else>
+          <van-icon name="search" size="18" color="#33373D" />
+        </router-link>
         <span :class="['more',showFun?'active':'']" @click="showFun = !showFun"></span>
       </template>
     </van-nav-bar>
@@ -51,10 +57,10 @@
           </a>
         </div>
         <div class="item">
-          <a href>
+          <router-link to="/user" @click.native="showFun = false">
             <i class="icon icon-account"></i>
             <span>账号</span>
-          </a>
+          </router-link>
         </div>
       </div>
     </van-popup>
@@ -71,13 +77,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["navBar"])
+    ...mapGetters(["navBar", "userInfo"])
   },
   created() {},
   mounted() {},
   methods: {
     onClickLeft() {
-      this.$router.back();
+      if (this.navBar.back  == 'login'){
+        this.$router.push('/')
+      }else{
+        this.$router.back()
+      }
     }
   }
 };
@@ -99,12 +109,20 @@ span.title {
 span.sub-title {
   font-size: 28px;
 }
-a.search{
+a.search {
   display: flex;
+  width: 72px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  img.user {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
 }
 span.more {
   display: block;
-  margin-left: 10px;
   &:empty {
     position: relative;
     width: 72px;

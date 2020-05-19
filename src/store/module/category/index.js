@@ -16,8 +16,8 @@ export default {
     actions: {
         async getCategory({ commit }, data = {}) {
             let result = await getCategory(data);
-            commit(Type.SET_CATEGORY, result.data);
-            return result.data;
+            commit(Type.SET_CATEGORY, result);
+            return result;
         },
         async getCategoryDetail({ commit }, data = {}) {
             let result = await getCategoryDetail(data);

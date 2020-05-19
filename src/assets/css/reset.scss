@@ -107,4 +107,38 @@ blockquote, body, dd, dl, figure, form, h1, h2, h3, h4, h5, h6, ol, p, ul{
 .van-field__error-message{
   font-size: 28px;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+}
+.person-container{
+  .van-nav-bar{
+    background-color: transparent !important;
+    border-bottom: none !important;
+  }
+  .van-hairline--bottom::after {
+      border-bottom-width: 0px !important;
+  }
+  .sub-title{
+    color: #ffffff;
+  }
+  .van-icon-arrow-left{
+    color: #ffffff !important;
+  }
+  .van-icon-search{
+    color: #ffffff !important;
+  }
+  span.more{
+    &:empty::before, &:empty::after{
+      border-color:#ffffff !important;
+    }
+  }
+}
+.custom-toast{
+  border-radius: 6px;
+  min-width: auto;
+  top: 40%;
+  font-size: 28px;
+  padding: 20px 24px;
+}

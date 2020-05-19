@@ -3,7 +3,6 @@ function resolveBook(str) {
     let data = {};
     let $ = cheerio.load(str, { decodeEntities: false });
     data ={
-        imgSrc: $('div.book-detail-info').find('img').attr('src'),
         title: $('h2.book-title').text(),
         tag: $('p.book-meta').eq(0).text(),
         wordCount: parseFloat($('p.book-meta').eq(1).text()),

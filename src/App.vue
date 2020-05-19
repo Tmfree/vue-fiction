@@ -4,11 +4,8 @@
   </div>
 </template>
 <script>
-
 export default {
-  components: {
-   
-  },
+  components: {},
   data() {
     return {};
   },
@@ -21,9 +18,15 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
-div,a,span,nav,article,section,header,footer{
+div,
+a,
+span,
+nav,
+article,
+section,
+header,
+footer {
   box-sizing: border-box;
 }
 </style>

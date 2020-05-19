@@ -2,7 +2,7 @@
  * 获取排行列表页
  */
 let http = require('./http');
-function getRank(data) {
+async function getRank(data) {
     let url = `/majax/rank/${data.type}`;
     let send = {
         _csrfToken: 'ZO58DAV1cBbMSx5iQHlhzIw87TguvG0TGf5Ca37g',
@@ -10,14 +10,12 @@ function getRank(data) {
         gender: 'male',
         pageNum: data.page
     }
-    return new Promise((resolve, reject) => {
-        http({
-            method: 'get',
-            url,
-            params:send
-        }).then(res => {
-            resolve(res.data)
-        })
+    let result = await http({
+        method: 'get',
+        url,
+        params:send
     })
+    return result.data
 }
-module.exports = getRank;
+
+module.exports = getRank

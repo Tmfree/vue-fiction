@@ -4,8 +4,8 @@
       <div class="slide">
         <div class="item" v-for="item in dataList" :key="item.bid">
           <router-link :to="`/book/${item.bid}`">
-            <img v-lazy="item.imgSrc" alt />
-            <span class="author">{{item.title}}</span>
+            <img v-lazy="`//bookcover.yuewen.com/qdbimg/349573/${item.bid}/150`" alt />
+            <span class="author">{{item.bName}}</span>
           </router-link>
         </div>
       </div>
@@ -19,27 +19,23 @@
       >
         <van-card>
           <template #title>
-            <span class="vertical-title">{{item.title}}</span>
+            <span class="vertical-title">{{item.bName}}</span>
           </template>
           <template #desc>
             <span class="vertical-desc">{{item.desc}}</span>
           </template>
           <template #thumb>
-            <img v-lazy="item.imgSrc" alt />
+            <img v-lazy="`//bookcover.yuewen.com/qdbimg/349573/${item.bid}/150`" alt />
           </template>
           <template #tags>
             <div class="vertical-status">
               <div class="right">
-                <span class="author">{{item.author}}</span>
+                <span class="author">{{item.bAuth}}</span>
               </div>
               <div class="left">
-                <van-tag
-                  plain
-                  type="danger"
-                  v-for="(sub,index) in item.tags"
-                  :key="index"
-                  :color="index | tagColor"
-                >{{sub}}</van-tag>
+                <van-tag plain type="danger" text-color="#969ba3" v-if="item.cat">{{item.cat}}</van-tag>
+                <van-tag plain type="danger" v-if="item.state">{{item.state}}</van-tag>
+                <van-tag plain type="danger" text-color="#4284ed" v-if="item.cnt">{{item.cnt}}</van-tag>
               </div>
             </div>
           </template>
@@ -181,6 +177,9 @@ export default {
       color: #33373d;
       margin-top: 16px;
       display: block;
+      line-height: 1.25;
+      overflow: hidden;
+      max-height: 65px;
     }
   }
 }
@@ -236,7 +235,7 @@ export default {
         flex: 1;
         display: flex;
         align-items: center;
-        border:1px solid transparent;
+        border: 1px solid transparent;
       }
       .van-tag {
         white-space: nowrap;

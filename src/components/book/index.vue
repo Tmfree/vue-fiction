@@ -3,10 +3,14 @@
     <MyScroll @refreshData="refreshHandle" :is-skeleton="isSkeleton">
       <div class="wrapper">
         <section class="book-p">
-          <img class="book-blur" :src="bookInfo.imgSrc" alt />
+          <img
+            class="book-blur"
+            :src="`//bookcover.yuewen.com/qdbimg/349573/${bookInfo.bid}/150`"
+            alt
+          />
           <div class="book-info">
             <div class="top">
-              <img :src="bookInfo.imgSrc" alt />
+              <img :src="`//bookcover.yuewen.com/qdbimg/349573/${bookInfo.bid}/150`" alt />
               <div class="sub">
                 <h2 class="book-title">{{bookInfo.title}}</h2>
                 <p class="book-star">
@@ -15,6 +19,18 @@
                 </p>
                 <p class="book-type">{{bookInfo.tag}}</p>
                 <p class="book-author">作者：哈啊</p>
+              </div>
+              <div class="user-os">
+                <div class="user-b" @click="collectHandle(isCollect)">
+                  <van-icon name="star-o" v-if="!isCollect" />
+                  <van-icon name="star" color="#ffd21e" v-else />
+                  <span>收藏</span>
+                </div>
+                <div class="user-b" @click="likeHandle(isLike)">
+                  <van-icon name="good-job-o" v-if="!isLike" />
+                  <van-icon name="good-job" color="#ff2626" v-else />
+                  <span>点赞</span>
+                </div>
               </div>
             </div>
             <div class="bottom">
@@ -77,7 +93,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { siteNavTitle } from "@/utils/navBar";
+import { siteNavTitle, debounce } from "@/utils/navBar";
 import MyScroll from "@/components/common/PullUp.vue";
 import MyArticle from "./article/index.vue";
 export default {
@@ -91,7 +107,9 @@ export default {
       isStartArticle: false, //文章弹窗
       currentPage: 1, //当前浏览的章节
       allArticleId: [],
-      isSkeleton: true //显示骨架屏
+      isSkeleton: true, //显示骨架屏
+      isCollect: 0, //是否收藏
+      isLike: 0 //是否点赞
     };
   },
   computed: {
@@ -102,6 +120,8 @@ export default {
   },
   watch: {
     bookInfo(val) {
+      this.isCollect = val.collect;
+      this.isLike = val.like;
       val.catalog.forEach(item => {
         item.cs.forEach(sub => {
           this.allArticleId.push(sub.id);
@@ -149,7 +169,31 @@ export default {
         aid: this.allArticleId[idx]
       };
       this.$store.dispatch("getArticle", data);
-    }
+    },
+    //收藏
+    collectHandle: debounce(function(flag) {
+      let data = {
+        bid: this.$route.params.id,
+        collect: flag ? 0 : 1
+      };
+      this.$store.dispatch("collect", data).then(res => {
+        if (res.code == 0) {
+          this.isCollect = flag ? 0 : 1;
+        }
+      });
+    }, 500),
+    //点赞
+    likeHandle: debounce(function(flag) {
+      let data = {
+        bid: this.$route.params.id,
+        like: flag ? 0 : 1
+      };
+      this.$store.dispatch("like", data).then(res => {
+        if (res.code == 0) {
+          this.isLike = flag ? 0 : 1;
+        }
+      });
+    }, 500)
   }
 };
 </script>
@@ -186,6 +230,7 @@ export default {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      position: relative;
       img {
         display: block;
         width: 160px;
@@ -219,6 +264,28 @@ export default {
         }
         .book-author {
           font-size: 24px;
+        }
+      }
+      .user-os {
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        .user-b {
+          font-size: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-left: 20px;
+          .van-icon {
+            color: #33373d;
+            font-size: 40px;
+          }
+          span {
+            color: #33373d;
+            margin-top: 6px;
+          }
         }
       }
     }
@@ -295,7 +362,7 @@ export default {
           bottom: 0;
           left: 32px;
           width: 100%;
-          height:0;
+          height: 0;
           border-bottom: 2px solid #f6f7f9;
           z-index: 1;
         }

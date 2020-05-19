@@ -1,13 +1,10 @@
 let http = require('./http');
 let resolveHome = require('../cheerio/home');
-function getQingFiction(data) {
-    return new Promise((resolve, reject) => {
-        http({
-            method: 'get'
-        }).then(res => {
-            let result = resolveHome.resolveQingFiction(res.data);
-            resolve(result)
-        })
+async function getQingFiction(data) {
+    let result = await http({
+        method: 'get'
     })
+    result = resolveHome.resolveQingFiction(result.data)
+    return result
 }
-module.exports = getQingFiction;
+module.exports = getQingFiction

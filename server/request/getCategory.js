@@ -1,15 +1,12 @@
 let http = require('./http');
 let resolveCategory = require('../cheerio/category');
 let config = require('../config.json');
-function getCategory(data) {
-    return new Promise((resolve, reject) => {
-        http({
-            method: 'get',
-            url: config.categoryApi
-        }).then(res => {
-            let result = resolveCategory(res.data);
-            resolve(result)
-        })
+async function getCategory(data) {
+    let result = await http({
+        method: 'get',
+        url: config.categoryApi
     })
+    result = resolveCategory(result.data)
+    return result
 }
 module.exports = getCategory;

@@ -3,16 +3,14 @@
  */
 let http = require('./http');
 let resolveRank = require('../cheerio/rank');
-function getRank(data) {
+async function getRank(data) {
     let url = '/rank/male';
-    return new Promise((resolve, reject) => {
-        http({
-            method: 'get',
-            url
-        }).then(res => {
-            let result = resolveRank(res.data);
-            resolve(result)
-        })
+    let result = await http({
+        method: 'get',
+        url
     })
+    result = resolveRank(result.data)
+    return result
 }
+
 module.exports = getRank;

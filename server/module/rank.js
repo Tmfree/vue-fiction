@@ -1,12 +1,8 @@
-const fs = require('fs');
-const path = require("path");
+let writeData = require('../utils/writeData');
 let getRank = require("../request/getRank");
-function getRankModule(data = {}) {
-    return new Promise((resolve, reject) => {
-        getRank(data).then(res => {
-            resolve(res)
-        })
-    })
+async function getRankModule(data = {}) {
+    let result = await writeData(getRank, data, 'rank', true);
+    return result;
 }
 
 module.exports = getRankModule;

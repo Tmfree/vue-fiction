@@ -1,13 +1,16 @@
 let http = require('./http');
-let resolveHome = require('../cheerio/home');
-function getNewFiction(data) {
-    return new Promise((resolve, reject) => {
-        http({
-            method: 'get'
-        }).then(res => {
-            let result = resolveHome.resolveNewFiction(res.data);
-            resolve(result)
-        })
+async function getNewFiction(data) {
+    let url = '/majax/recommend/newBooklist'
+    let params = {
+        _csrfToken: 'ZO58DAV1cBbMSx5iQHlhzIw87TguvG0TGf5Ca37g',
+        gender: 'male',
+        pageNum: data.page
+    }
+    let result = await http({
+        url,
+        method: 'get',
+        params
     })
+    return result.data
 }
-module.exports = getNewFiction;
+module.exports = getNewFiction

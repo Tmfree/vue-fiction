@@ -63,7 +63,7 @@ export default {
   },
   watch: {
     categoryDetailList(val) {
-      let temp = val.data.records;
+      let temp = val.records;
       this.currentSize = temp.length;
       this.dataList = this.dataList.concat(temp);
       this.page++;

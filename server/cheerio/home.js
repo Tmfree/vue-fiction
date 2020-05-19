@@ -23,8 +23,7 @@ function resolveHotFiction(str) {
         let temp = {
             bid: $(this).attr('data-bid'),
             uid: $(this).attr('data-auid'),
-            imgSrc: $(this).find('img').attr('data-src'),
-            title: $(this).find('.module-slide-caption').text()
+            bName: $(this).find('.module-slide-caption').text()
         }
         data.push(temp);
     });
@@ -39,8 +38,7 @@ function resolveFreeFiction(str) {
         let temp = {
             bid: $(this).attr('data-bid'),
             uid: $(this).attr('data-auid'),
-            imgSrc: $(this).find('img').attr('data-src'),
-            title: $(this).find('.module-slide-caption').text()
+            bName: $(this).find('.module-slide-caption').text()
         }
         data.push(temp);
     });
@@ -60,8 +58,7 @@ function resolveNewFiction(str) {
         let temp = {
             bid: $(this).attr('data-bid'),
             uid: $(this).attr('data-auid'),
-            imgSrc: $(this).find('img').attr('data-src'),
-            title: $(this).find('.book-title').text(),
+            bName: $(this).find('.book-title').text(),
             desc: $(this).find('.book-desc').text(),
             author: $(this).find('.book-author').text(),
             tags
@@ -79,7 +76,6 @@ function resolveQingFiction(str) {
         let temp = {
             bid: $(this).attr('data-bid'),
             uid: $(this).attr('data-auid'),
-            imgSrc: $(this).find('img').attr('data-src'),
             title: $(this).find('.module-slide-caption').text()
         }
         data.push(temp);

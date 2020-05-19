@@ -1,30 +1,27 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
+const dataIO = require('./dataio')
+
 /**
- * @param {Function} requestA 
- * @param {Object} data 
- * @param {String} fileName //写入数据的 文件名
- * @param {Boolean} isCache //是否从本地拿数据
+ * @param {Function} requestA 请求方法
+ * @param {Object} data 请求参数
+ * @param {String} fileName 写入数据的文件名
+ * @param {Boolean} isCache 是否从本地拿数据
  */
-function preAjax(requestA, data = {}, fileName, isCache = true) {
-    let currFile = path.resolve(__dirname, `../mock/${fileName}.js`);
-    return new Promise((resolve, reject) => {
+const preAjax = (requestA, data = {}, fileName, isCache = true) => {
+    let mockFilePath = path.resolve(__dirname, `../mock/${fileName}.json`)
+    return new Promise(async (resolve, reject) => {
         if (isCache) {
-            fs.access(currFile, (err, data) => {
-                if (err) {
-                    requestA(data).then(res => {
-                        resolve(res);
-                        fs.writeFileSync(currFile, JSON.stringify(res), 'utf-8');
-                    })
-                    return;
-                }
-                let result = JSON.parse(fs.readFileSync(currFile));
-                resolve(result);
-            })
+            let result = await dataIO.find(mockFilePath)
+            if (result.length > 0) {
+                return resolve(result)
+            }
+            result = await requestA(data)
+            resolve(result)
+            fs.writeFileSync(mockFilePath, JSON.stringify(result), 'utf-8')
         } else {
-            requestA(data).then(res => {
-                resolve(res);
-            })
+            let result = await requestA(data)
+            resolve(result)
         }
     })
 }
