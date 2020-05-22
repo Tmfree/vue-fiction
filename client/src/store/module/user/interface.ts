@@ -1,8 +1,9 @@
+import { UserInfo } from "@/interface/user"
 export interface Iuser {
     isLogin?: boolean,
     loginInfo?: any,
     isCollect?: boolean,
-    userInfo?: any,
-    collectList?:Array<any>,
-    likeList?:Array<any>
+    userInfo?: UserInfo,
+    collectList?: Array<any>,
+    likeList?: Array<any>
 }

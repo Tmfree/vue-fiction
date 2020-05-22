@@ -15,7 +15,6 @@ import { siteNavTitle } from "@/utils/tool";
 })
 export default class Category extends Vue {
   beforeRouteEnter(to, from, next) {
-    console.log(1)
     next(vm => {
       //获取标题
       siteNavTitle(vm, false, true, "分类");

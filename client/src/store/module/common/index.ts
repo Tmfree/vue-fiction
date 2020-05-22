@@ -45,7 +45,7 @@ let mutations: MutationTree<base> = {
 }
 let actions: ActionTree<base, any> = {
     async getLunbo({ commit }, data = {}) {
-        let result = await getLunbo(data);
+        let result= await getLunbo(data);
         commit(Type.SET_LUNBO_LIST, result)
         return result
     },

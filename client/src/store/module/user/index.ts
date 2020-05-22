@@ -8,7 +8,12 @@ let state: Iuser = {
     isLogin: false,
     loginInfo: {},
     isCollect: false,
-    userInfo: {},
+    userInfo: {
+        uid: "",
+        nickName: "",
+        avatar: "",
+        isLogin: false
+    },
     collectList: [],
     likeList: []
 }
@@ -33,7 +38,7 @@ let actions: ActionTree<Iuser, any> = {
     async login({ commit }, data = {}) {
         //md5+aes加密
         data.password = Aes.encrypt(data.password);
-        let result:any = await postLogin(data);
+        let result = await postLogin(data);
         if (result.code == 0) {
             setToken(result.data.token);
             commit(Type.SET_LOGIN_STATUS, true);
@@ -51,7 +56,7 @@ let actions: ActionTree<Iuser, any> = {
     },
     async getUserInfo({ commit }, data = {}) {
         let result = await getUserInfo(data);
-        commit(Type.SET_USER_INFO, result.data);
+        commit(Type.SET_USER_INFO, result);
         return result;
     },
     async getCollectList({ commit }, data = {}) {

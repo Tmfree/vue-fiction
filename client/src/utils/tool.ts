@@ -16,24 +16,58 @@ export function siteNavTitle(vm: any, showTitle: boolean, showLeftTitle: boolean
     vm.$store.commit('SET_NAVBAR_TITLE', type);
 }
 //防抖
-export function debounce(fn: any, wait: number) {
-    let timeout: any = null;
-    return function (this: any, ...args: any[]) {
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {
-            fn.call(this, ...args)
-        }, wait)
+export class Debounce {
+    private wait: number
+    constructor(wait: number) {
+        this.wait = wait
     }
-}
-//节流
-export function throttle(func: any, delay: number) {
-    var timer: any = null;
-    return function (this: any, ...args: any[]) {
-        if (!timer) {
-            timer = setTimeout(() => {
-                func.apply(this, args);
-                timer = null;
-            }, delay);
+    use(fn: Function) {
+        let timeout: any = null;
+        return (...args: any[]): void => {
+            clearTimeout(timeout)
+            timeout = setTimeout(() => {
+                fn.call(this, ...args)
+            }, this.wait)
         }
     }
 }
+//节流
+export class Throttle {
+    private delay: number
+    constructor(delay: number) {
+        this.delay = delay
+    }
+    use(fn: Function) {
+        var timer: any = null;
+        return (...args: any[]) => {
+            if (!timer) {
+                timer = setTimeout(() => {
+                    fn.call(this, ...args);
+                    timer = null;
+                }, this.delay);
+            }
+        }
+    }
+}
+// //防抖
+// export function debounce(fn: Function, wait: number) {
+//     let timeout: any = null;
+//     return function (this: any, ...args: any[]) {
+//         clearTimeout(timeout)
+//         timeout = setTimeout(() => {
+//             fn.call(this, ...args)
+//         }, wait)
+//     }
+// }
+// //节流
+// export function throttle(fn: Function, delay: number) {
+//     var timer: any = null;
+//     return function (this: any, ...args: any[]) {
+//         if (!timer) {
+//             timer = setTimeout(() => {
+//                 fn.apply(this, args);
+//                 timer = null;
+//             }, delay);
+//         }
+//     }
+// }

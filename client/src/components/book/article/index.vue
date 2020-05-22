@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch, Emit } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 
 @Component({
@@ -61,14 +61,18 @@ export default class CArticle extends Vue {
     this.articleConent = newValue;
   }
 
-  private onClickLeft() {
-    this.$emit("close", false);
+  @Emit("close")
+  onClickLeft() {
+    return false;
   }
-  private loadArticleHandle() {
+
+  @Emit("loadCatalog")
+  loadArticleHandle() {
     //加载数据
     this.skeleton = true;
-    this.$emit("loadCatalog", this.activePage - 1);
+    return this.activePage - 1;
   }
+
   //滚回顶部
   private goUpHandle() {
     let myScroll: any = this.$refs.article;

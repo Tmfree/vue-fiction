@@ -94,7 +94,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { siteNavTitle, debounce } from "@/utils/tool";
+import { siteNavTitle, Debounce } from "@/utils/tool";
 import MyScroll from "@/components/common/PullUp.vue";
 import MyArticle from "./article/index.vue";
 
@@ -116,7 +116,7 @@ export default class CBook extends Vue {
   private dataList: any[] = [];
   private isStartArticle: boolean = false; //文章弹窗
   private currentPage: number = 1; //当前浏览的章节
-  private allArticleId: any[] = [];
+  private allArticleId: any[] = []; //获取所有章节Id
   private isSkeleton: boolean = true; //显示骨架屏
   private isCollect: number = 0; //是否收藏
   private isLike: number = 0; //是否点赞
@@ -143,7 +143,7 @@ export default class CBook extends Vue {
     this._getBookInfo();
     this.isSkeleton = true;
   }
-  
+
   //上拉刷新
   private refreshHandle() {
     //获取数据
@@ -176,9 +176,9 @@ export default class CBook extends Vue {
     };
     this.$store.dispatch("getArticle", data);
   }
-
   //收藏
-  private collectHandle = debounce(function(flag) {
+  private collectHandle: Function = new Debounce(500).use(this.collectRequest);
+  private collectRequest(flag: number) {
     let data = {
       bid: this.$route.params.id,
       collect: flag ? 0 : 1
@@ -188,10 +188,10 @@ export default class CBook extends Vue {
         this.isCollect = flag ? 0 : 1;
       }
     });
-  }, 500);
-
+  }
   //点赞
-  private likeHandle = debounce(function(flag) {
+  private likeHandle: Function = new Debounce(500).use(this.likeRequest);
+  private likeRequest(flag: number) {
     let data = {
       bid: this.$route.params.id,
       like: flag ? 0 : 1
@@ -201,7 +201,7 @@ export default class CBook extends Vue {
         this.isLike = flag ? 0 : 1;
       }
     });
-  }, 500);
+  }
 }
 </script>
 

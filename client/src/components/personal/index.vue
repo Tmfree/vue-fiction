@@ -34,8 +34,8 @@
           </li>
           <li>
             <router-link to>
-              <span class="count">0</span>
-              <span class="gray">看过</span>
+              <span class="count">{{collectList.length}}</span>
+              <span class="gray">收藏</span>
             </router-link>
           </li>
           <li>
@@ -50,7 +50,7 @@
         <li>
           <router-link to>
             <h3 class="book-title">
-              <i class="icon-center-exp"></i>收藏的小说
+              <i class="icon-center-exp"></i>经验等级
             </h3>
             <van-icon name="arrow" color="#969ba3" />
           </router-link>
@@ -99,7 +99,7 @@ import { mapGetters } from "vuex";
 import { removeToken } from "@/utils/auth";
 @Component({
   computed: {
-    ...mapGetters(["userInfo", "likeList"])
+    ...mapGetters(["userInfo","collectList", "likeList"])
   }
 })
 export default class CPersonal extends Vue {
@@ -114,6 +114,7 @@ export default class CPersonal extends Vue {
 
   created() {
     this.$store.dispatch("getUserInfo");
+    this.$store.dispatch("getCollectList");
     this.$store.dispatch("getLikeList");
   }
 
