@@ -21,3 +21,6 @@ yarn-error.log*
 *.sw?
 
 # server
+server/mock/freeFiction.json
+server/mock/hotFiction.json
+server/mock/lunbo.json
