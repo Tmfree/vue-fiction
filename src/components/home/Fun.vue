@@ -2,25 +2,20 @@
   <div class="container">
     <nav class="fun">
       <router-link v-for="item in funList" :key="item.id" :to="item.href">
-         <i :class="item.className"></i>
+        <i :class="item.className"></i>
         <span>{{item.text}}</span>
       </router-link>
     </nav>
   </div>
 </template>
 
-<script>
-import {funList} from "./data"
-export default {
-  components: {},
-  data() {
-    return {
-      funList
-    };
-  },
-  created() {},
-  mounted() {}
-};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { funList } from "./data";
+@Component
+export default class Cfun extends Vue {
+  private funList: any[] = funList;
+}
 </script>
 
 <style scoped lang="scss">

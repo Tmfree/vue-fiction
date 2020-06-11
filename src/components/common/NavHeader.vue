@@ -14,33 +14,16 @@
     </router-link>
   </div>
 </template>
-<script>
-export default {
-  components: {},
-  props: {
-    title: {
-      type: String,
-      default: "标题"
-    },
-    desc: {
-      type: String,
-      default: ""
-    },
-    isMore: {
-      type: Boolean,
-      default: true
-    },
-    href: {
-      type: String,
-      default: ""
-    }
-  },
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {}
-};
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component
+export default class CNavHeader extends Vue {
+  @Prop({ type: String, default: "标题" }) title: string;
+  @Prop({ type: String, default: "" }) desc: string;
+  @Prop({ type: Boolean, default: true }) isMore: boolean;
+  @Prop({ type: String, default: "" }) href: string;
+}
 </script>
 
 <style scoped lang="scss">

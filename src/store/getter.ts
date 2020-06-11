@@ -1,9 +1,10 @@
-export default {
+import { GetterTree } from "vuex"
+let getters: GetterTree<any, any> = {
     navBar: state => state.generalModule.navBar,//导航头信息
     rankDataList: state => state.rankModule.dataList,
     lunboList: state => state.generalModule.lunboList,//轮播数据列
     hotFictionList: state => state.generalModule.hotFictionList,//热门小说
-    freeFictionList: state =>  state.generalModule.freeFictionList,//免费小说
+    freeFictionList: state => state.generalModule.freeFictionList,//免费小说
     newFictionList: state => state.generalModule.newFictionList,//新书抢先
     qingFictionList: state => state.generalModule.qingFictionList,//轻小说
     bookInfo: state => state.bookModule.bookInfo,//小说介绍
@@ -21,3 +22,5 @@ export default {
     collectList: state => state.userModule.collectList,//收藏列表
     likeList: state => state.userModule.likeList,//点赞列表
 }
+
+export default getters

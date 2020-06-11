@@ -9,9 +9,7 @@
             <br />
             {{item.text.substr(2,item.text.length)}}
           </span>
-          <span class="title" v-else>
-            {{item.text}}
-          </span>
+          <span class="title" v-else>{{item.text}}</span>
           <span class="more">
             <van-icon name="more" color="#ffffff" size="24px" />
           </span>
@@ -31,37 +29,29 @@
   </MyScroll>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import MyScroll from "@/components/common/PullUp.vue";
-export default {
+import { mapGetters } from "vuex";
+@Component({
   components: {
     MyScroll
   },
-  data() {
-    return {
-       isSkeleton: true
-    };
-  },
-  computed: {
-    ...mapGetters(["rank"])
-  },
-  watch: {
-    rank(val) {}
-  },
+  computed: mapGetters(["rank"])
+})
+export default class Crank extends Vue {
+  private rank: any[];
+  private isSkeleton: boolean = true;
   async created() {
     await this._getRank();
-     //关闭loading效果
+    //关闭loading效果
     this.isSkeleton = false;
-  },
-  mounted() {},
-  methods: {
-    _getRank() {
-      let data = {};
-      this.$store.dispatch("getRank", data);
-    }
   }
-};
+  private _getRank() {
+    let data = {};
+    this.$store.dispatch("getRank", data);
+  }
+}
 </script>
 
 <style scoped lang="scss">

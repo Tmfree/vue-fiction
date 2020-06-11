@@ -34,8 +34,8 @@
           </li>
           <li>
             <router-link to>
-              <span class="count">0</span>
-              <span class="gray">看过</span>
+              <span class="count">{{collectList.length}}</span>
+              <span class="gray">收藏</span>
             </router-link>
           </li>
           <li>
@@ -50,7 +50,7 @@
         <li>
           <router-link to>
             <h3 class="book-title">
-              <i class="icon-center-exp"></i>收藏的小说
+              <i class="icon-center-exp"></i>经验等级
             </h3>
             <van-icon name="arrow" color="#969ba3" />
           </router-link>
@@ -93,40 +93,40 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { removeToken } from "@/utils/auth";
-export default {
-  components: {},
-  data() {
-    return {
-      likeData: []
-    };
-  },
+@Component({
   computed: {
-    ...mapGetters(["userInfo", "likeList"])
-  },
-  watch: {
-    likeList(val) {
-      this.likeData = val;
-    }
-  },
+    ...mapGetters(["userInfo","collectList", "likeList"])
+  }
+})
+export default class CPersonal extends Vue {
+  private userInfo: any;
+  private likeList: any[];
+  private likeData: any[] = [];
+
+  @Watch("likeList")
+  onLikeListChanged(newValue: any[], oldValue: any[]) {
+    this.likeData = newValue;
+  }
+
   created() {
     this.$store.dispatch("getUserInfo");
+    this.$store.dispatch("getCollectList");
     this.$store.dispatch("getLikeList");
-  },
-  mounted() {},
-  methods: {
-    loginHandle() {
-      let redirect = this.$route.path;
-      this.$router.push({ name: "login", query: { redirect } });
-    },
-    logoutHandle() {
-      removeToken();
-      window.location.reload();
-    }
   }
-};
+
+  private loginHandle() {
+    let redirect = this.$route.path;
+    this.$router.push({ name: "login", query: { redirect } });
+  }
+  private logoutHandle() {
+    removeToken();
+    window.location.reload();
+  }
+}
 </script>
 
 <style scoped lang="scss">

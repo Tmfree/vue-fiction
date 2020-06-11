@@ -26,36 +26,31 @@
   </MyScroll>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import MyScroll from "@/components/common/PullUp.vue";
-export default {
+import { mapGetters } from "vuex";
+@Component({
   components: {
     MyScroll
   },
-  data() {
-    return {
-      activeNames: [0, 1, 2],
-      isSkeleton: true
-    };
-  },
-  computed: {
-    ...mapGetters(["categoryList"])
-  },
-  created() {
+  computed: mapGetters(["categoryList"])
+})
+export default class Ccategory extends Vue {
+  private categoryList: Array<any>;
+  private activeNames: Array<number | string> = [0, 1, 2];
+  private isSkeleton: boolean = true;
+  private created() {
     this._getCategoryList();
-  },
-  mounted() {},
-  methods: {
-    _getCategoryList() {
-      let data = {};
-      this.$store.dispatch("getCategory", data).then(result => {
-        //关闭loading效果
-        this.isSkeleton = false;
-      });
-    }
   }
-};
+  protected _getCategoryList() {
+    let data = {};
+    this.$store.dispatch("getCategory", data).then(result => {
+      //关闭loading效果
+      this.isSkeleton = false;
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">

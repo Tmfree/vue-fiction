@@ -4,18 +4,15 @@
   </div>
 </template>
 
-<script>
-import MLogin from "@/components/login";
-export default {
+<script lang="ts">
+import MLogin from "@/components/login/index.vue";
+import { Component, Vue } from "vue-property-decorator";
+@Component({
   components: {
     MLogin
-  },
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {}
-};
+  }
+})
+export default class Login extends Vue {}
 </script>
 
 <style scoped lang="scss">

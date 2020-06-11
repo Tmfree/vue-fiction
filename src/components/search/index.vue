@@ -10,35 +10,32 @@
       />
     </form>
     <div class="wrapper">
-     
-      <MyList v-if="isShow" />
-       <div class="white" v-else ></div>
+      <CsearchList v-if="isShow" />
+      <div class="white" v-else></div>
     </div>
   </div>
 </template>
 
-<script>
-import MyList from "./List.vue";
-export default {
-  components: { MyList },
-  data() {
-    return {
-      keyWord: "",
-      isShow: false
-    };
-  },
-  created() {},
-  mounted() {},
-  methods: {
-    onSearch(val) {
-      this.isShow = true;
-      this.$store.commit('SET_SEARCHKW',val);
-    },
-    onCancel() {
-      this.$router.back();
-    }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import CsearchList from "./searchList.vue";
+@Component({
+  components: {
+    CsearchList
   }
-};
+})
+export default class Csearch extends Vue {
+  private keyWord: string = "";
+  private isShow: boolean = false;
+
+  private onSearch(val) {
+    this.isShow = true;
+    this.$store.commit("SET_SEARCHKW", val);
+  }
+  private onCancel() {
+    this.$router.back();
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -46,7 +43,7 @@ export default {
   .wrapper {
     width: 100%;
     height: calc(100vh - 88px);
-    .white{
+    .white {
       height: inherit;
     }
   }

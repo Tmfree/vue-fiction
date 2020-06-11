@@ -21,14 +21,14 @@ server.interceptors.response.use(function (response) {
     // Do something with response data
     if (response.data.code === 50001 || response.data.code === 50002) {
         Toast({
-            message:'未登录',
-            className:'custom-toast',
+            message: '未登录',
+            className: 'custom-toast',
             duration: 2000
         });
         removeToken();
-        return response.data;
+        return response;
     } else {
-        return response.data;
+        return response;
     }
 
 }, function (error) {

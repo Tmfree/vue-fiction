@@ -1,9 +1,8 @@
 import Vue from "vue";
-import store from '@/store';
-import VueRouter from "vue-router";
+import VueRouter, { RouteConfig } from "vue-router";
 import { getToken } from '@/utils/auth'
 Vue.use(VueRouter);
-const routes = [
+const routes: Array<RouteConfig> = [
   {
     path: "/",
     component: () => import("../views/Layout.vue"),
@@ -84,7 +83,7 @@ const routes = [
   },
   {
     path: '/login',
-    name:'login',
+    name: 'login',
     component: () => import("../views/Login.vue"),
     meta: {
       isLogin: false

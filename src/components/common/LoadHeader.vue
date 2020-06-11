@@ -1,27 +1,14 @@
 <template>
-  <div class="load-container">
-
-  </div>
+  <div class="load-container"></div>
 </template>
 
-<script>
-export default {
-  components: {
-
-  },
-  data() {
-    return {
-        loading:true
-    }
-  },
-  created() {
-
-  },
-  mounted() {
-  }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+@Component
+export default class Login extends Vue {
+  private loading: boolean = true;
 }
 </script>
 
 <style scoped lang="scss">
-
 </style>

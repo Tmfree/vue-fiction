@@ -3,16 +3,14 @@
     <router-view />
   </div>
 </template>
-<script>
-export default {
-  components: {},
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {}
-};
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class App extends Vue {}
 </script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

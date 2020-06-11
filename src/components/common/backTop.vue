@@ -6,30 +6,20 @@
   </div>
 </template>
 
-<script>
-export default {
-  components: {},
-  props:{
-    isBack:{
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      scrollTop: 0,
-      isShowBackUp: false
-    };
-  },
-  created() {},
-  mounted() {
-  },
-  methods: {
-    backUp() {
-      this.$emit("goUp", false);
-    }
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component
+export default class CBackTop extends Vue {
+  @Prop({ type: Boolean, default: false }) isBack: boolean;
+
+  private scrollTop: number = 0;
+  private isShowBackUp: boolean = false;
+
+  private backUp() {
+    this.$emit("goUp", false);
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

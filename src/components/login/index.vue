@@ -28,46 +28,40 @@
             <van-button round block :disabled="isLogin" native-type="submit">登录</van-button>
           </div>
         </van-form>
-         <div class="info">
-           <p>仅支持此账号，后台自行修改</p>
-           <p>账号：123456</p>
-           <p>密码：123456</p>
-         </div>
+        <div class="info">
+          <p>仅支持此账号，后台自行修改</p>
+          <p>账号：123456</p>
+          <p>密码：123456</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-export default {
-  components: {},
-  data() {
-    return {
-      username: "",
-      password: "",
-      isCollect: false
-    };
-  },
-  computed: {
-    isLogin() {
-      return !this.username || !this.password;
-    }
-  },
-  created() {},
-  mounted() {},
-  methods: {
-    onSubmit(val) {
-      let data = val;
-      this.$store.dispatch("login", data).then(res => {
-        if (res.code == 0) {
-          let path = this.$route.query.redirect;
-          this.$router.push({ path, query: { from: "login" } });
-        }
-      });
-    }
+
+@Component
+export default class CLogin extends Vue {
+  private username: string = "";
+  private password: string = "";
+  private isCollect: boolean = false;
+
+  get isLogin() {
+    return !this.username || !this.password;
   }
-};
+
+  private onSubmit(val) {
+    let data = val;
+    this.$store.dispatch("login", data).then(res => {
+      if (res.code == 0) {
+        let { redirect }: any = this.$route.query;
+        this.$router.push({ path: redirect, query: { from: "login" } });
+      }
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -121,9 +115,9 @@ export default {
     }
   }
 }
-.info{
+.info {
   width: 100%;
-  p{
+  p {
     white-space: nowrap;
     font-size: 28px;
     line-height: 1.6;

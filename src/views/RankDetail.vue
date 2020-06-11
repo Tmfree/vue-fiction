@@ -1,27 +1,25 @@
 <template>
   <div class="container">
-    <RankDetail />
+    <MyRankDetail />
   </div>
 </template>
 
-<script>
-import { siteNavTitle } from "@/utils/navBar";
-import RankDetail from "@/components/rank/detail.vue";
-export default {
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import MyRankDetail from "@/components/rank/detail.vue";
+import { siteNavTitle } from "@/utils/tool";
+@Component({
   components: {
-    RankDetail
-  },
-  data() {
-    return {};
-  },
-  beforeRouteEnter(to, from, next) {
+    MyRankDetail
+  }
+})
+export default class RankDetail extends Vue {
+ beforeRouteEnter(to, from, next) {
     next(vm => {
       siteNavTitle(vm, false, true, vm.$route.query.title);
     });
-  },
-  created() {},
-  mounted() {}
-};
+  }
+}
 </script>
 
 <style scoped lang="scss">

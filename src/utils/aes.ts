@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 const CBCIV = "abcdefgabcdefg12";
 export default {
     //加密
-    encrypt(data) {
+    encrypt(data: string) {
         data = CryptoJS.MD5("copyright." + data + "pms@2016").toString();
         let key = CryptoJS.enc.Utf8.parse(CBCIV);
         let secretData = CryptoJS.enc.Utf8.parse(data);
@@ -20,7 +20,7 @@ export default {
     },
 
     //解密
-    decrypt(data) {
+    decrypt(data:string) {
         let key = CryptoJS.enc.Utf8.parse(CBCIV);
         let decrypt = CryptoJS.AES.decrypt(
             data,

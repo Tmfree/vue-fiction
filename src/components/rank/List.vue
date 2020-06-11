@@ -1,7 +1,17 @@
 <template>
-  <MyScroll @refreshData="refreshHandle" @moreData="loadMoreHandle" :page-size="currentSize" :data-list="dataList">
+  <MyScroll
+    @refreshData="refreshHandle"
+    @moreData="loadMoreHandle"
+    :page-size="currentSize"
+    :data-list="dataList"
+  >
     <div class="wrapper-vertical">
-      <router-link :to="`/book/${item.bid}`" class="vertical-link" v-for="(item,index) in dataList" :key="index">
+      <router-link
+        :to="`/book/${item.bid}`"
+        class="vertical-link"
+        v-for="(item,index) in dataList"
+        :key="index"
+      >
         <van-card>
           <template #title>
             <span class="vertical-title">{{item.bName}}</span>
@@ -30,33 +40,31 @@
   </MyScroll>
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Vue, Prop } from "vue-property-decorator";
 import MyScroll from "@/components/common/PullUp.vue";
-export default {
+@Component({
   components: {
     MyScroll
-  },
-  props: {
-    currentTab: {
-      type: Number,
-      default: -1
-    }
-  },
-  data() {
-    return {
-      dataList: [],
-      page: 1,
-      currentSize: 0
-    };
-  },
-  created() {},
-  mounted() {},
-  methods: {
-    refreshHandle(){
+  }
+})
+export default class CrankList extends Vue{
+  @Prop({
+    type: Number,
+    default: -1
+  })
+  currentTab: number
+
+  private dataList: any[] = []
+  private page: number = 1
+  private currentSize: number = 0
+ 
+  private refreshHandle(){
       this.dataList = [];
       this.page = 1;
-    },
-    loadMoreHandle() {
+    }
+    
+  private loadMoreHandle() {
       let data = {
         type: this.$route.params.id,
         catId: this.currentTab,
@@ -69,7 +77,6 @@ export default {
         this.page++;
       });
     }
-  }
 };
 </script>
 
@@ -139,7 +146,7 @@ export default {
         flex: 1;
         display: flex;
         align-items: center;
-        border:1px solid transparent;
+        border: 1px solid transparent;
       }
       .van-tag {
         white-space: nowrap;

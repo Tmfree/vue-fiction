@@ -42,52 +42,50 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
-import { siteNavTitle } from "@/utils/navBar";
+<script lang="ts">
+import { Component, Vue, Watch } from "vue-property-decorator";
 import MyScroll from "@/components/common/PullUp.vue";
-export default {
+import { mapGetters } from "vuex";
+import { siteNavTitle } from "@/utils/tool";
+@Component({
   components: {
     MyScroll
   },
-  data() {
-    return {
-      dataList: [],
-      page: 1,
-      currentSize: 0,
-      finished: false
-    };
-  },
   computed: {
     ...mapGetters(["categoryDetailList"])
-  },
-  watch: {
-    categoryDetailList(val) {
-      let temp = val.records;
-      this.currentSize = temp.length;
-      this.dataList = this.dataList.concat(temp);
-      this.page++;
-    }
-  },
-  created() {
-    siteNavTitle(this, false, true, this.$route.query.catTitle);
-  },
-  mounted() {},
-  methods: {
-    refreshHandle() {
-      this.dataList = [];
-      this.page = 1;
-    },
-    loadMoreHandle() {
-      let data = {
-        page: this.page,
-        catId: this.$route.query.catId,
-        subCatId: this.$route.query.subCatId
-      };
-      this.$store.dispatch("getCategoryDetail", data);
-    }
   }
-};
+})
+export default class CcatLit extends Vue {
+  private categoryDetailList: Array<any>;
+  private dataList: Array<any> = [];
+  private page: number = 1;
+  private currentSize: number = 0;
+  private finished: boolean = false;
+
+  @Watch("categoryDetailList")
+  onMsgChanged(newValue: any, oldValue: any) {
+    let temp: any[] = newValue.records;
+    this.currentSize = temp.length;
+    this.dataList = this.dataList.concat(temp);
+    this.page++;
+  }
+  created() {
+    let { catTitle } = this.$route.query;
+    siteNavTitle(this, false, true, catTitle);
+  }
+  private refreshHandle() {
+    this.dataList = [];
+    this.page = 1;
+  }
+  private loadMoreHandle() {
+    let data = {
+      page: this.page,
+      catId: this.$route.query.catId,
+      subCatId: this.$route.query.subCatId
+    };
+    this.$store.dispatch("getCategoryDetail", data);
+  }
+}
 </script>
 
 <style scoped lang="scss">

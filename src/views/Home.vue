@@ -4,24 +4,24 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 // @ is an alias to /src
+import { Component, Vue } from "vue-property-decorator";
 import MyHome from "@/components/home/index.vue";
-import { siteNavTitle } from "@/utils/navBar";
-export default {
-  name: "Home",
+import { siteNavTitle } from "@/utils/tool";
+@Component({
   components: {
     MyHome
-  },
+  }
+})
+export default class Home extends Vue {
   beforeRouteEnter(to, from, next) {
     next(vm => {
       //获取标题
       siteNavTitle(vm, true, false, "");
     });
-  },
-  created() {},
-  methods: {}
-};
+  }
+}
 </script>
 <style lang="scss" scoped>
 .home {

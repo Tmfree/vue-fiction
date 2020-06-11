@@ -91,111 +91,118 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { siteNavTitle, debounce } from "@/utils/navBar";
+import { siteNavTitle, Debounce } from "@/utils/tool";
 import MyScroll from "@/components/common/PullUp.vue";
 import MyArticle from "./article/index.vue";
-export default {
+
+@Component({
   components: {
     MyScroll,
     MyArticle
-  },
-  data() {
-    return {
-      dataList: [],
-      isStartArticle: false, //文章弹窗
-      currentPage: 1, //当前浏览的章节
-      allArticleId: [],
-      isSkeleton: true, //显示骨架屏
-      isCollect: 0, //是否收藏
-      isLike: 0 //是否点赞
-    };
   },
   computed: {
     ...mapGetters(["bookInfo", "articleContent"]),
     star() {
       return parseFloat(this.bookInfo.starScore);
     }
-  },
-  watch: {
-    bookInfo(val) {
-      this.isCollect = val.collect;
-      this.isLike = val.like;
-      val.catalog.forEach(item => {
-        item.cs.forEach(sub => {
-          this.allArticleId.push(sub.id);
-        });
+  }
+})
+export default class CBook extends Vue {
+  private bookInfo: any;
+  private articleContent: any;
+  private dataList: any[] = [];
+  private isStartArticle: boolean = false; //文章弹窗
+  private currentPage: number = 1; //当前浏览的章节
+  private allArticleId: any[] = []; //获取所有章节Id
+  private isSkeleton: boolean = true; //显示骨架屏
+  private isCollect: number = 0; //是否收藏
+  private isLike: number = 0; //是否点赞
+
+  get star() {
+    return parseFloat(this.bookInfo.starScore);
+  }
+
+  @Watch("bookInfo")
+  onBookInfoChanged(newValue: any, oldValue: any) {
+    this.isCollect = newValue.collect;
+    this.isLike = newValue.like;
+    newValue.catalog.forEach(item => {
+      item.cs.forEach(sub => {
+        this.allArticleId.push(sub.id);
       });
-      //获取标题
-      siteNavTitle(this, false, true, val.title);
-    }
-  },
+    });
+    //获取标题
+    siteNavTitle(this, false, true, newValue.title);
+  }
+
   created() {
     //获取数据
     this._getBookInfo();
     this.isSkeleton = true;
-  },
-  mounted() {},
-  methods: {
-    //上拉刷新
-    refreshHandle() {
-      //获取数据
-      this.isSkeleton = true;
-      this._getBookInfo();
-    },
-    //选择章节
-    switchArticleHandle(aid) {
-      let num = this.allArticleId.indexOf(aid) + 1;
-      this.isStartArticle = true; //开启文章
-      this.currentPage = num; //获取当前页码
-    },
-    //关闭弹窗
-    closeHandle() {
-      this.isStartArticle = false;
-    },
-    //获取文章详情
-    async _getBookInfo() {
-      let data = {
-        bid: this.$route.params.id
-      };
-      await this.$store.dispatch("getBookInfo", data);
-      this.isSkeleton = false;
-    },
-    //获取章节内容
-    _getArticle(idx) {
-      let data = {
-        bid: this.$route.params.id,
-        aid: this.allArticleId[idx]
-      };
-      this.$store.dispatch("getArticle", data);
-    },
-    //收藏
-    collectHandle: debounce(function(flag) {
-      let data = {
-        bid: this.$route.params.id,
-        collect: flag ? 0 : 1
-      };
-      this.$store.dispatch("collect", data).then(res => {
-        if (res.code == 0) {
-          this.isCollect = flag ? 0 : 1;
-        }
-      });
-    }, 500),
-    //点赞
-    likeHandle: debounce(function(flag) {
-      let data = {
-        bid: this.$route.params.id,
-        like: flag ? 0 : 1
-      };
-      this.$store.dispatch("like", data).then(res => {
-        if (res.code == 0) {
-          this.isLike = flag ? 0 : 1;
-        }
-      });
-    }, 500)
   }
-};
+
+  //上拉刷新
+  private refreshHandle() {
+    //获取数据
+    this.isSkeleton = true;
+    this._getBookInfo();
+  }
+  //选择章节
+  private switchArticleHandle(aid) {
+    let num = this.allArticleId.indexOf(aid) + 1;
+    this.isStartArticle = true; //开启文章
+    this.currentPage = num; //获取当前页码
+  }
+  //关闭弹窗
+  private closeHandle() {
+    this.isStartArticle = false;
+  }
+  //获取文章详情
+  private async _getBookInfo() {
+    let data = {
+      bid: this.$route.params.id
+    };
+    await this.$store.dispatch("getBookInfo", data);
+    this.isSkeleton = false;
+  }
+  //获取章节内容
+  private _getArticle(idx) {
+    let data = {
+      bid: this.$route.params.id,
+      aid: this.allArticleId[idx]
+    };
+    this.$store.dispatch("getArticle", data);
+  }
+  //收藏
+  private collectHandle: Function = new Debounce(500).use(this.collectRequest);
+  private collectRequest(flag: number) {
+    let data = {
+      bid: this.$route.params.id,
+      collect: flag ? 0 : 1
+    };
+    this.$store.dispatch("collect", data).then(res => {
+      if (res.code == 0) {
+        this.isCollect = flag ? 0 : 1;
+      }
+    });
+  }
+  //点赞
+  private likeHandle: Function = new Debounce(500).use(this.likeRequest);
+  private likeRequest(flag: number) {
+    let data = {
+      bid: this.$route.params.id,
+      like: flag ? 0 : 1
+    };
+    this.$store.dispatch("like", data).then(res => {
+      if (res.code == 0) {
+        this.isLike = flag ? 0 : 1;
+      }
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">

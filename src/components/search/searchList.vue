@@ -1,6 +1,12 @@
 <template>
   <div class="catagory-container">
-    <MyScroll @moreData="loadMoreHandle" :page-size="currentSize" :data-list="dataList">
+    <MyScroll
+      @refreshData="refreshHandle"
+      @moreData="loadMoreHandle"
+      :page-size="currentSize"
+      :data-list="dataList"
+      :curr-search="currSearchKW"
+    >
       <div class="wrapper-vertical">
         <router-link
           :to="`/book/${item.bid}`"
@@ -37,46 +43,48 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
+<script lang="ts">
+import { Component, Vue, Watch } from "vue-property-decorator";
 import MyScroll from "@/components/common/PullUp.vue";
-export default {
+import { mapGetters } from "vuex";
+@Component({
   components: {
     MyScroll
   },
-  data() {
-    return {
-      dataList: [],
-      page: 1,
-      currentSize: 0
-    };
-  },
   computed: {
     ...mapGetters(["searchList", "searchKW"])
-  },
-  watch: {
-    searchKW(val) {
-      this.dataList = [];
-      this.page = 1;
-    }
-  },
-  created() {},
-  mounted() {},
-  methods: {
-    loadMoreHandle() {
-      let data = {
-        kw: this.searchKW,
-        page: this.page
-      };
-      this.$store.dispatch("getSearch", data).then(result => {
-        let temp = result.data.bookInfo.records;
-        this.currentSize = temp.length;
-        this.dataList = this.dataList.concat(temp);
-        this.page++;
-      });
-    }
   }
-};
+})
+export default class CsearchList extends Vue {
+  private searchList: any[];
+  private searchKW: string;
+  private dataList: any[] = [];
+  private page: number = 1;
+  private currentSize: number = 0;
+  private currSearchKW: string = '';
+
+  @Watch("searchKW")
+  onSearchChanged(newValue: string, oldValue: string) {
+    this.currSearchKW = newValue;
+  }
+  private refreshHandle() {
+    console.log(2)
+    this.dataList = [];
+    this.page = 1;
+  }
+  private loadMoreHandle() {
+    let data = {
+      kw: this.searchKW,
+      page: this.page
+    };
+    this.$store.dispatch("getSearch", data).then(result => {
+      let temp = result.data.bookInfo.records;
+      this.currentSize = temp.length;
+      this.dataList = this.dataList.concat(temp);
+      this.page++;
+    });
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -138,7 +146,7 @@ export default {
         flex: 1;
         display: flex;
         align-items: center;
-        border:1px solid transparent;
+        border: 1px solid transparent;
       }
       .van-tag {
         white-space: nowrap;

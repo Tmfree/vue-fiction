@@ -46,49 +46,40 @@ VUE_APP_BASEURL="url"
 账号：123456
 密码：123456
 ```
+![效果图](static/3.png)
 
-## 项目结构
+## 项目部分结构
 ```
 |-- fiction
     |-- .env.development 开发环境变量
     |-- .env.production 生成环境变量
     |-- .gitignore
     |-- babel.config.js
+    |-- tsconfig.json
     |-- package.json
     |-- postcss.config.js
     |-- README.md
     |-- vue.config.js
     |-- yarn.lock
-    |-- public
-    |   |-- favicon.ico
-    |   |-- index.html
-    |-- server   服务器端接口Api
     |-- src
+        |-- interface //接口存放
+            |-- base.ts
+            |-- user.ts
         |-- App.vue
-        |-- main.js
+        |-- main.ts
         |-- assets
         |-- components
         |-- request 请求设置
         |-- router  路由
         |-- store
-        |   |-- getter.js
-        |   |-- index.js
+        |   |-- getter.ts
+        |   |-- index.ts
         |   |-- module
         |       |-- common
         |       |-- rank
         |-- utils
-        |   |-- navBar.js 
+        |   |-- navBar.ts
         |   |-- vw.css
-        |-- views
-            |-- About.vue
-            |-- BookInfo.vue
-            |-- CatDetail.vue
-            |-- Category.vue
-            |-- Home.vue
-            |-- Layout.vue
-            |-- Rank.vue
-            |-- RankDetail.vue
-            |-- Search.vue
 ```
 ## 预览
 
@@ -101,3 +92,26 @@ VUE_APP_BASEURL="url"
 
 [1]: https://github.com/Tmfree/vue-fiction
 [2]: https://tmfree.dowy.cn/
+
+## Build Setup
+
+### 客户端
+``` bash
+# 下载或克隆下来，然后安装依赖
+yarn or npm install
+
+# 开发预览
+yarn or npm serve
+
+# 打包发布，生成的文件在dist文件夹中
+yarn or npm build
+```
+
+### 服务端
+``` bash
+# 提取server文件夹,安装依赖
+yarn or npm install
+
+# 运行
+node app.js
+```

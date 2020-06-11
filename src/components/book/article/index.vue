@@ -30,70 +30,59 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch, Emit } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-export default {
-  components: {},
-  props: {
-    currentPage: {
-      type: Number,
-      default: 1
-    },
-    dataList: {
-      type: Object,
-      default: () => {}
-    },
-    total: {
-      type: String,
-      default: ""
-    }
-  },
-  data() {
-    return {
-      activePage: 1,
-      skeleton: true,
-      articleConent: null
-    };
-  },
+
+@Component({
   computed: {
     ...mapGetters(["bookInfo"])
-  },
-  watch: {
-    currentPage: {
-      immediate: true,
-      handler: function(val) {
-        this.activePage = val;
-        this.loadArticleHandle();
-      }
-    },
-    dataList(val) {
-      this.skeleton = false;
-      this.articleConent = val;
-    }
-  },
-  created() {},
-  updated() {},
-  mounted() {},
-  methods: {
-    onClickLeft() {
-      this.$emit("close", false);
-    },
-    loadArticleHandle() {
-      //加载数据
-      this.skeleton = true;
-      this.$emit("loadCatalog", this.activePage - 1);
-    },
-    //滚回顶部
-    goUpHandle() {
-      let myScroll = this.$refs.article;
-      let nowTop = myScroll.scrollTop;
-      if (nowTop > 0) {
-        window.requestAnimationFrame(this.goUpHandle);
-        myScroll.scrollTop = nowTop - nowTop / 5;
-      }
+  }
+})
+export default class CArticle extends Vue {
+  @Prop({ type: Number, default: 1 }) currentPage: number;
+  @Prop({ type: Object, default: () => {} }) dataList: any;
+  @Prop({ type: String, default: "" }) total: string;
+
+  private bookInfo: any;
+  private activePage: number = 1;
+  private skeleton: boolean = true;
+  private articleConent: any;
+
+  @Watch("currentPage", { immediate: true })
+  onCurrPageChanged(newValue: number, oldValue: number) {
+    this.activePage = newValue;
+    this.loadArticleHandle();
+  }
+
+  @Watch("dataList")
+  onDataListChanged(newValue: any, oldValue: any) {
+    this.skeleton = false;
+    this.articleConent = newValue;
+  }
+
+  @Emit("close")
+  onClickLeft() {
+    return false;
+  }
+
+  @Emit("loadCatalog")
+  loadArticleHandle() {
+    //加载数据
+    this.skeleton = true;
+    return this.activePage - 1;
+  }
+
+  //滚回顶部
+  private goUpHandle() {
+    let myScroll: any = this.$refs.article;
+    let nowTop = myScroll.scrollTop;
+    if (nowTop > 0) {
+      window.requestAnimationFrame(this.goUpHandle);
+      myScroll.scrollTop = nowTop - nowTop / 5;
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

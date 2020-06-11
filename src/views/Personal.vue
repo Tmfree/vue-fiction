@@ -5,27 +5,25 @@
   </div>
 </template>
 
-<script>
-import MUser from "@/components/personal";
-import { siteNavTitle } from "@/utils/navBar";
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import MUser from "@/components/personal/index.vue";
 import NavBar from "@/components/common/NavBar.vue";
-export default {
+import { siteNavTitle } from "@/utils/tool";
+@Component({
   components: {
     MUser,
     NavBar
-  },
-  data() {
-    return {};
-  },
-  beforeRouteEnter(to, from, next) {
+  }
+})
+export default class Personal extends Vue {
+ beforeRouteEnter(to, from, next) {
     next(vm => {
       //获取标题
       siteNavTitle(vm, false, true, "个人中心", to.query.from);
     });
-  },
-  created() {},
-  mounted() {}
-};
+  }
+}
 </script>
 
 <style scoped lang="scss">

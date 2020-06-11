@@ -2,18 +2,15 @@
   <CatList />
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import CatList from "@/components/category/catList.vue";
-export default {
-  components: {
+@Component({
+  components:{
     CatList
-  },
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {}
-};
+  }
+})
+export default class CatDetail extends Vue{}
 </script>
 
 <style scoped lang="scss">

@@ -7,7 +7,6 @@ import bookModule from './module/book';
 import categoryModule from './module/category';
 import userModule from './module/user';
 Vue.use(Vuex);
-
 export default new Vuex.Store({
   state: {},
   mutations: {},

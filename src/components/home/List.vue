@@ -71,44 +71,24 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { dataList } from "./data";
-export default {
-  components: {},
-  props: {
-    dataList: {
-      type: Array,
-      default: () => dataList
-    },
-    subjectList: {
-      type: Array,
-      default: () => []
-    },
-    horizontal: {
-      type: Boolean,
-      default: false
-    },
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    subject: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {};
-  },
+@Component({
   filters: {
     tagColor(num) {
       let color = num == 0 ? "#969BA3" : num == 1 ? "" : "#4284ed";
       return color;
     }
   },
-  created() {},
-  mounted() {}
-};
+})
+export default class CList extends Vue {
+  @Prop({type:Array,default:() => dataList}) dataList: any[]
+  @Prop({type:Array,default:() => []}) subjectList: any[]
+  @Prop({type:Boolean,default:false}) horizontal: boolean
+  @Prop({type:Boolean,default:false}) vertical: boolean
+  @Prop({type:Boolean,default:false}) subject: boolean
+}
 </script>
 
 <style scoped lang="scss">

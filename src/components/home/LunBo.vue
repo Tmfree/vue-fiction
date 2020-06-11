@@ -10,23 +10,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  components: {},
-  props: {
-    dataList: {
-      type: Array,
-      default: () => []
-    }
-  },
-  data() {
-    return {
-    };
-  },
-  created() {
-  },
-  mounted() {}
-};
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+@Component
+export default class CLunBo extends Vue {
+  @Prop({ type: Array, default: () => [] }) dataList: any[];
+}
 </script>
 
 <style scoped lang="scss">

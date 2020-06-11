@@ -2,18 +2,15 @@
   <BookInfo />
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import BookInfo from "@/components/book/index.vue";
-export default {
+@Component({
   components: {
     BookInfo
-  },
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {}
-};
+  }
+})
+export default class BookDetail extends Vue {}
 </script>
 
 <style scoped lang="scss">

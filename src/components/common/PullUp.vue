@@ -26,114 +26,128 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import BackTop from "@/components/common/backTop";
-export default {
+import BackTop from "./backTop.vue";
+@Component({
   components: {
     BackTop
   },
-  props: {
-    isSkeleton: {
-      type: Boolean,
-      default: true
-    },
-    page: {
-      type: Number,
-      default: 0
-    },
-    pageSize: {
-      type: Number,
-      default: 5
-    },
-    dataList: {
-      type: Array,
-      default: () => []
-    },
-    searchRefresh: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      loading: false,
-      finished: false,
-      refreshing: false,
-      skeleton: true,
-      isShowGoback: false,
-      scrollTop: 0
-    };
-  },
   computed: {
     ...mapGetters(["searchKW"])
-  },
-  watch: {
-    searchKW(val) {
-      this.onRefresh();
-    },
-    isSkeleton(val) {
-      this.skeleton = val;
-    },
-    pageSize(val) {
-      if (this.pageSize < 20) {
-        this.finished = true;
-      }
-    },
-    dataList(val) {
-      if (val.length == 0) {
-        this.loading = true;
-        return;
-      }
-      this.loading = false;
+  }
+})
+export default class PullUp extends Vue {
+  @Prop({
+    type: Boolean,
+    default: true
+  })
+  isSkeleton: boolean;
+
+  @Prop({
+    type: Number,
+    default: 0
+  })
+  page: number;
+
+  @Prop({
+    type: Number,
+    default: 20
+  })
+  pageSize: number;
+
+  @Prop({
+    type: Array,
+    default: () => []
+  })
+  dataList: any[];
+
+  @Prop({
+    type: Boolean,
+    default: false
+  })
+  searchRefresh: boolean;
+
+  @Prop({
+    type: String,
+    default: ""
+  })
+  currSearch: string;
+
+  private loading: boolean = false;
+  private finished: boolean = false;
+  private refreshing: boolean = false;
+  private skeleton: boolean = true;
+  private isShowGoback: boolean = false;
+  private scrollTop: number = 0;
+
+  @Watch("currSearch")
+  onCurrSearchChanged(newValue: string, oldValue: string) {
+    this.onRefresh();
+  }
+
+  @Watch("isSkeleton")
+  onSkeletonChanged(newValue: boolean, oldValue: boolean) {
+    this.skeleton = newValue;
+  }
+  @Watch("pageSize")
+  onPageSizeChanged(newValue: number, oldValue: number) {
+    if (newValue < 20) this.finished = true;
+  }
+
+  @Watch("dataList")
+  onDataListChanged(newValue: any[], oldValue: any[]) {
+    if (newValue.length == 0) {
+      this.loading = true;
+      return;
     }
-  },
-  created() {},
+    this.loading = false;
+  }
   mounted() {
-    let myScroll = this.$refs.backup.scrollEl;
-    myScroll.addEventListener("scroll", this._scrollHandle);
-  },
+    let { scrollEl }: any = this.$refs.backup;
+    scrollEl.addEventListener("scroll", this._scrollHandle);
+  }
   activated() {
     //保留上个页面滚动位置
-    let myScroll = this.$refs.backup.scrollEl;
-    myScroll.scrollTop = this.scrollTop;
-  },
-  deactivated() {},
-  methods: {
-    onRefresh() {
-      // 清空列表数据
-      this.finished = false;
-      // 重新加载数据
-      // 将 loading 设置为 true，表示处于加载状态
-      this.loading = true;
-      this.onLoad();
-    },
-    onLoad() {
-      if (this.refreshing) {
-        this.$emit("refreshData");
-        this.refreshing = false;
-      }
-      this.$emit("moreData");
-    },
-    _scrollHandle(e) {
-      let scrollTop = e.target.scrollTop;
-      this.scrollTop = scrollTop; //记录滚动条的位置
-      if (scrollTop > 300) {
-        this.isShowGoback = true;
-        return;
-      }
-      this.isShowGoback = false;
-    },
-    goUpHandle() {
-      let myScroll = this.$refs.backup.scrollEl;
-      let nowTop = myScroll.scrollTop;
-      if (nowTop > 0) {
-        window.requestAnimationFrame(this.goUpHandle);
-        myScroll.scrollTop = nowTop - nowTop / 5;
-      }
+    let { scrollEl }: any = this.$refs.backup;
+    scrollEl.scrollTop = this.scrollTop;
+  }
+
+  private onRefresh() {
+    this.refreshing = true;
+    // 清空列表数据
+    this.finished = false;
+    // 将 loading 设置为 true，表示处于加载状态
+    this.loading = true;
+    // 重新加载数据
+    this.onLoad();
+  }
+  private onLoad() {
+    if (this.refreshing) {
+      this.$emit("refreshData");
+      this.refreshing = false;
+    }
+    this.$emit("moreData");
+  }
+  private _scrollHandle(e) {
+    let scrollTop = e.target.scrollTop;
+    this.scrollTop = scrollTop; //记录滚动条的位置
+    if (scrollTop > 300) {
+      this.isShowGoback = true;
+      return;
+    }
+    this.isShowGoback = false;
+  }
+  private goUpHandle() {
+    let { scrollEl }: any = this.$refs.backup;
+    let nowTop = scrollEl.scrollTop;
+    if (nowTop > 0) {
+      window.requestAnimationFrame(this.goUpHandle);
+      scrollEl.scrollTop = nowTop - nowTop / 5;
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

@@ -7,20 +7,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import MBar from "@/components/common/NavBar.vue";
-
-export default {
+import { Component, Vue } from "vue-property-decorator";
+@Component({
   components: {
     MBar
-  },
-  data() {
-    return {};
-  },
-  created() {},
-  mounted() {},
-  methods: {}
-};
+  }
+})
+export default class Layout extends Vue {}
 </script>
 
 <style scoped lang="scss">

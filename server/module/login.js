@@ -5,7 +5,7 @@ const userToken = require('../utils/userToken')
 const dataIO = require('../utils/dataio')
 const filterResCode = require('../utils/filterResCode')
 async function login(data = {}) {
-    let { username, password, token, tokenCode } = data
+    let { username, password } = data
     //获取账号
     let accountFilePath = path.resolve(__dirname, '../mock/account.json')
     let accountList = await dataIO.find(accountFilePath, { username })
@@ -16,23 +16,26 @@ async function login(data = {}) {
     }
     //判断密码是否正确
     if (user.password === password) {
-        //jwt生成加密token，uid是公文，密钥是“secret”，1小时后过期
         let { uid } = user
         let payload = { uid } //负载信息
         //从数据里拿token
+        let token = '' //存储token
         let tokenFilePath = path.resolve(__dirname, '../mock/token.json')
         let tokenList = await dataIO.find(tokenFilePath, { uid })
         if (tokenList.length > 0) {
             //验证token是否还有效
-            let tokenCode = await userToken.verifyToken(tokenList[0].token);
+            let tokenCode = await userToken.verifyToken(tokenList[0].token)
             if (tokenCode !== 0) {
                 //更新token
+                //jwt生成加密token，uid是公文，密钥是“secret”，1小时后过期
                 token = userToken.addToken(payload, { expiresIn: 60 * 60 * 1 })
                 dataIO.update(tokenFilePath, { uid }, { token })
+            } else {
+                //token还在有效期
+                token = tokenList[0].token
             }
-            //token还在有效期
-            token = tokenList[0].token
         } else {
+            //jwt生成加密token，uid是公文，密钥是“secret”，1小时后过期
             token = userToken.addToken(payload, { expiresIn: 60 * 60 * 1 })
             dataIO.insert(tokenFilePath, { uid, token })
         }
