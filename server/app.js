@@ -4,7 +4,6 @@ const app = express();
 const router = require('./router/index')
 const userToken = require('./utils/userToken')
 const cache = require('apicache').middleware
-const filterResCode = require('./utils/filterResCode')
 
 //跨域
 app.use((req, res, next) => {
