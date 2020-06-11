@@ -100,4 +100,4 @@ VUE_APP_BASEURL="url"
 要是感兴趣的话，可以自行看代码，大部分内容还是比较简单的，有问题的话欢迎提出了一起讨论
 
 [1]: https://github.com/Tmfree/vue-fiction
-[2]: https://tmfree.dowy.cn/
+[2]: https://fiction.tmfree.xyz/
