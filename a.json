@@ -1,0 +1,477 @@
+[
+    {
+        "catId": "21",
+        "cName": "玄幻",
+        "pCatId": "0"
+    },
+    {
+        "cName": "东方玄幻",
+        "catId": "8",
+        "pCatId": "21"
+    },
+    {
+        "cName": "异世大陆",
+        "catId": "73",
+        "pCatId": "21"
+    },
+    {
+        "cName": "王朝争霸",
+        "catId": "58",
+        "pCatId": "21"
+    },
+    {
+        "cName": "高武世界",
+        "catId": "78",
+        "pCatId": "21"
+    },
+    {
+        "catId": "1",
+        "cName": "奇幻",
+        "pCatId": "0"
+    },
+    {
+        "cName": "现代魔法",
+        "catId": "38",
+        "pCatId": "1"
+    },
+    {
+        "cName": "剑与魔法",
+        "catId": "62",
+        "pCatId": "1"
+    },
+    {
+        "cName": "史诗奇幻",
+        "catId": "201",
+        "pCatId": "1"
+    },
+    {
+        "cName": "黑暗幻想",
+        "catId": "202",
+        "pCatId": "1"
+    },
+    {
+        "cName": "历史神话",
+        "catId": "20092",
+        "pCatId": "1"
+    },
+    {
+        "cName": "另类幻想",
+        "catId": "20093",
+        "pCatId": "1"
+    },
+    {
+        "catId": "2",
+        "cName": "武侠",
+        "pCatId": "0"
+    },
+    {
+        "cName": "传统武侠",
+        "catId": "5",
+        "pCatId": "2"
+    },
+    {
+        "cName": "武侠幻想",
+        "catId": "30",
+        "pCatId": "2"
+    },
+    {
+        "cName": "国术无双",
+        "catId": "206",
+        "pCatId": "2"
+    },
+    {
+        "cName": "古武未来",
+        "catId": "20099",
+        "pCatId": "2"
+    },
+    {
+        "cName": "武侠同人",
+        "catId": "20100",
+        "pCatId": "2"
+    },
+    {
+        "catId": "22",
+        "cName": "仙侠",
+        "pCatId": "0"
+    },
+    {
+        "cName": "修真文明",
+        "catId": "18",
+        "pCatId": "22"
+    },
+    {
+        "cName": "幻想修仙",
+        "catId": "44",
+        "pCatId": "22"
+    },
+    {
+        "cName": "现代修真",
+        "catId": "64",
+        "pCatId": "22"
+    },
+    {
+        "cName": "神话修真",
+        "catId": "207",
+        "pCatId": "22"
+    },
+    {
+        "cName": "古典仙侠",
+        "catId": "20101",
+        "pCatId": "22"
+    },
+    {
+        "catId": "4",
+        "cName": "都市",
+        "pCatId": "0"
+    },
+    {
+        "cName": "爱情婚姻",
+        "catId": "6",
+        "pCatId": "4"
+    },
+    {
+        "cName": "都市生活",
+        "catId": "12",
+        "pCatId": "4"
+    },
+    {
+        "cName": "都市异能",
+        "catId": "16",
+        "pCatId": "4"
+    },
+    {
+        "cName": "异术超能",
+        "catId": "74",
+        "pCatId": "4"
+    },
+    {
+        "cName": "青春校园",
+        "catId": "130",
+        "pCatId": "4"
+    },
+    {
+        "cName": "娱乐明星",
+        "catId": "151",
+        "pCatId": "4"
+    },
+    {
+        "cName": "商战职场",
+        "catId": "153",
+        "pCatId": "4"
+    },
+    {
+        "catId": "15",
+        "cName": "现实",
+        "pCatId": "0"
+    },
+    {
+        "cName": "社会乡土",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "cName": "生活时尚",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "cName": "文学艺术",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "cName": "成功励志",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "cName": "青春文学",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "cName": "爱情婚姻",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "cName": "现实百态",
+        "catId": "153",
+        "pCatId": "15"
+    },
+    {
+        "catId": "6",
+        "cName": "军事",
+        "pCatId": "0"
+    },
+    {
+        "cName": "军旅生涯",
+        "catId": "54",
+        "pCatId": "6"
+    },
+    {
+        "cName": "军事战争",
+        "catId": "65",
+        "pCatId": "6"
+    },
+    {
+        "cName": "战争幻想",
+        "catId": "80",
+        "pCatId": "6"
+    },
+    {
+        "cName": "抗战烽火",
+        "catId": "230",
+        "pCatId": "6"
+    },
+    {
+        "cName": "谍战特工",
+        "catId": "231",
+        "pCatId": "6"
+    },
+    {
+        "catId": "5",
+        "cName": "历史",
+        "pCatId": "0"
+    },
+    {
+        "cName": "架空历史",
+        "catId": "22",
+        "pCatId": "5"
+    },
+    {
+        "cName": "秦汉三国",
+        "catId": "48",
+        "pCatId": "5"
+    },
+    {
+        "cName": "上古先秦",
+        "catId": "220",
+        "pCatId": "5"
+    },
+    {
+        "cName": "历史传记",
+        "catId": "32",
+        "pCatId": "5"
+    },
+    {
+        "cName": "两晋隋唐",
+        "catId": "222",
+        "pCatId": "5"
+    },
+    {
+        "cName": "五代十国",
+        "catId": "223",
+        "pCatId": "5"
+    },
+    {
+        "cName": "两宋元明",
+        "catId": "224",
+        "pCatId": "5"
+    },
+    {
+        "cName": "清史民国",
+        "catId": "225",
+        "pCatId": "5"
+    },
+    {
+        "cName": "外国历史",
+        "catId": "226",
+        "pCatId": "5"
+    },
+    {
+        "cName": "民间传说",
+        "catId": "20094",
+        "pCatId": "5"
+    },
+    {
+        "catId": "7",
+        "cName": "游戏",
+        "pCatId": "0"
+    },
+    {
+        "cName": "电子竞技",
+        "catId": "7",
+        "pCatId": "7"
+    },
+    {
+        "cName": "虚拟网游",
+        "catId": "70",
+        "pCatId": "7"
+    },
+    {
+        "cName": "游戏异界",
+        "catId": "240",
+        "pCatId": "7"
+    },
+    {
+        "cName": "游戏系统",
+        "catId": "20102",
+        "pCatId": "7"
+    },
+    {
+        "cName": "游戏主播",
+        "catId": "20103",
+        "pCatId": "7"
+    },
+    {
+        "catId": "8",
+        "cName": "体育",
+        "pCatId": "0"
+    },
+    {
+        "cName": "篮球运动",
+        "catId": "28",
+        "pCatId": "8"
+    },
+    {
+        "cName": "体育赛事",
+        "catId": "55",
+        "pCatId": "8"
+    },
+    {
+        "cName": "足球运动",
+        "catId": "82",
+        "pCatId": "8"
+    },
+    {
+        "catId": "9",
+        "cName": "科幻",
+        "pCatId": "0"
+    },
+    {
+        "cName": "古武机甲",
+        "catId": "21",
+        "pCatId": "9"
+    },
+    {
+        "cName": "未来世界",
+        "catId": "25",
+        "pCatId": "9"
+    },
+    {
+        "cName": "星际文明",
+        "catId": "68",
+        "pCatId": "9"
+    },
+    {
+        "cName": "超级科技",
+        "catId": "250",
+        "pCatId": "9"
+    },
+    {
+        "cName": "时空穿梭",
+        "catId": "251",
+        "pCatId": "9"
+    },
+    {
+        "cName": "进化变异",
+        "catId": "252",
+        "pCatId": "9"
+    },
+    {
+        "cName": "末世危机",
+        "catId": "253",
+        "pCatId": "9"
+    },
+    {
+        "catId": "10",
+        "cName": "悬疑",
+        "pCatId": "0"
+    },
+    {
+        "cName": "诡秘悬疑",
+        "catId": "26",
+        "pCatId": "10"
+    },
+    {
+        "cName": "奇妙世界",
+        "catId": "35",
+        "pCatId": "10"
+    },
+    {
+        "cName": "侦探推理",
+        "catId": "57",
+        "pCatId": "10"
+    },
+    {
+        "cName": "探险生存",
+        "catId": "260",
+        "pCatId": "10"
+    },
+    {
+        "cName": "古今传奇",
+        "catId": "20095",
+        "pCatId": "10"
+    },
+    {
+        "catId": "12",
+        "cName": "轻小说",
+        "pCatId": "0"
+    },
+    {
+        "cName": "原生幻想",
+        "catId": "60",
+        "pCatId": "12"
+    },
+    {
+        "cName": "现代幻想",
+        "catId": "10",
+        "pCatId": "12"
+    },
+    {
+        "cName": "衍生同人",
+        "catId": "281",
+        "pCatId": "12"
+    },
+    {
+        "cName": "搞笑吐槽",
+        "catId": "282",
+        "pCatId": "12"
+    },
+    {
+        "cName": "青春日常",
+        "catId": "66",
+        "pCatId": "12"
+    },
+    {
+        "catId": "20076",
+        "cName": "短篇",
+        "pCatId": "0"
+    },
+    {
+        "cName": "诗歌散文",
+        "catId": "20097",
+        "pCatId": "20076"
+    },
+    {
+        "cName": "人物传记",
+        "catId": "20098",
+        "pCatId": "20076"
+    },
+    {
+        "cName": "影视剧本",
+        "catId": "20075",
+        "pCatId": "20076"
+    },
+    {
+        "cName": "评论文集",
+        "catId": "20077",
+        "pCatId": "20076"
+    },
+    {
+        "cName": "生活随笔",
+        "catId": "20078",
+        "pCatId": "20076"
+    },
+    {
+        "cName": "美文游记",
+        "catId": "20079",
+        "pCatId": "20076"
+    },
+    {
+        "cName": "短篇小说",
+        "catId": "20096",
+        "pCatId": "20076"
+    }
+]

@@ -10,7 +10,9 @@ import "normalize.css/normalize.css";
 import './utils/vw.css';
 import 'vant/lib/index.css';
 import './assets/css/reset.scss'
+import Ajax from './request/api'
 
+Vue.prototype.$Ajax = Ajax
 Vue.use(Vant);
 Vue.use(VuePageStack, { router })
 Vue.config.productionTip = false;

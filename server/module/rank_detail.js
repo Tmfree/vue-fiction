@@ -1,6 +1,6 @@
-let getRankDetail = require("../request/getRankDetail");
-async function getRankDetailModule(data = {}) {
-    let result = await getRankDetail(data);
+let RankCtrl = require('../controler/rankControler')
+async function getRankDetailModule(params = {}) {
+    let result = await RankCtrl.getRankList(params)
     return result;
 }
 

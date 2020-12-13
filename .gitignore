@@ -21,7 +21,4 @@ yarn-error.log*
 *.sw?
 
 # server
-/server/mock/token.json
-/server/mock/book.json
-/server/mock/like.json
-/server/mock/collect.json
+/server/router/craw/*

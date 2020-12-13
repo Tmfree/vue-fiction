@@ -2,6 +2,7 @@ const axios = require('axios');
 const config = require('../config.json');
 const server = axios.create({
     baseURL: config.baseUrl,
+    method: 'GET',
     timeout: 6000
 });
 // Add a request interceptor

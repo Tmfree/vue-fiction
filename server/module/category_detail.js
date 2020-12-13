@@ -1,6 +1,6 @@
-let getCategoryDetail = require("../request/getCategoryDetail")
-async function getCategoryDetailModule(data = {}) {
-    let result = await getCategoryDetail(data)
+let Bookctrl = require('../controler/bookControler')
+async function getCategoryDetailModule(params = {}) {
+    let result = await Bookctrl.getCategoryList(params)
     return result
 }
 

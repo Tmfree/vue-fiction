@@ -1,11 +1,16 @@
 const express = require('express')
+const path = require('path')
 const bodyParser = require('body-parser')
 const app = express();
 const router = require('./router/index')
 const userToken = require('./utils/userToken')
 const cache = require('apicache').middleware
-const filterResCode = require('./utils/filterResCode')
-
+const crawRouter = require('./router/craw')
+const { connect } = require('./utils/connect')
+const { graphqlHTTP } = require('express-graphql')
+const graphschema = require('./graphql/schema')
+//链接数据库
+connect()
 //跨域
 app.use((req, res, next) => {
     res.set({
@@ -17,11 +22,17 @@ app.use((req, res, next) => {
     })
     req.method === 'OPTIONS' ? res.status(204).end() : next()
 })
-
+//静态资源
+app.use('/static', express.static(path.join(__dirname, 'static')))
 // body parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+//graphql
+app.use('/graphql', graphqlHTTP({
+    schema: graphschema,
+    graphiql: true
+}))
 // cache
 //app.use(cache('3 minutes', ((req, res) => res.statusCode === 200)))
 
@@ -31,9 +42,10 @@ app.use(async (req, res, next) => {
     let code = await userToken.verifyToken(token)
     req.query.tokenCode = code
     req.query.token = token
-    return next()
+    next()
 })
-app.use('/api', router);
+app.use('/craw', crawRouter)
+app.use('/api', router)
 
 const port = process.env.PORT || 3000
 const host = process.env.HOST || ''

@@ -1,7 +1,6 @@
-let writeData = require('../utils/writeData');
-let getCategory = require("../request/getCategory");
-async function getCategoryModule(data = {}) {
-    let result = await writeData(getCategory, data, 'category', true);
+let CommCtrl= require('../controler/commControler')
+async function getCategoryModule(params = {}) {
+    let result = await CommCtrl.getCategory(params);
     return result;
 }
 

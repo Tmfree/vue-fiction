@@ -1,31 +1,34 @@
 <template>
-  <div class="container">
+  <div class="navbar">
     <van-nav-bar @click-left="onClickLeft">
       <template #title v-if="navBar.showTitle">
         <span class="title">山楂小说</span>
       </template>
       <template #left v-if="navBar.showLeftTitle">
         <van-icon name="arrow-left" size="18" color="#33373D" />
-        <span class="sub-title">{{navBar.leftTitle}}</span>
+        <span class="sub-title">{{ navBar.leftTitle }}</span>
       </template>
       <template #right>
         <router-link to="/user" class="search" v-if="navBar.showTitle">
-          <img :src="userInfo.avatar" alt class="user" v-if="userInfo.isLogin" />
-          <van-icon name="user-o" size="18" color="#33373D" v-else />
+          <img :src="userInfo.avatarUrl" alt class="user" v-if="userInfo" />
+          <van-icon name="user-o" color="#33373D" v-else />
         </router-link>
         <router-link to="/search" class="search" v-else>
           <van-icon name="search" size="18" color="#33373D" />
         </router-link>
-        <span :class="['more',showFun?'active':'']" @click="showFun = !showFun"></span>
+        <span
+          :class="['more', showFun ? 'active' : '']"
+          @click="showFun = !showFun"
+        ></span>
       </template>
     </van-nav-bar>
     <van-popup
       v-model="showFun"
       position="top"
-      :overlay-style="{'top':'0.88rem'}"
+      :overlay-style="{ top: '0.88rem' }"
       transition="myslide"
     >
-      <div :class="['sub',showFun?'active':'']">
+      <div :class="['sub', showFun ? 'active' : '']">
         <div class="item">
           <router-link to="/" @click.native="showFun = false">
             <i class="icon icon-home"></i>
@@ -73,27 +76,27 @@ export default {
   components: {},
   data() {
     return {
-      showFun: false
+      showFun: false,
     };
   },
   computed: {
-    ...mapGetters(["navBar", "userInfo"])
+    ...mapGetters(["navBar", "userInfo"]),
   },
   created() {},
   mounted() {},
   methods: {
     onClickLeft() {
-      if (this.navBar.back  == 'login'){
-        this.$router.push('/')
-      }else{
-        this.$router.back()
-      }
-    }
-  }
+      this.$router.back();
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+.navbar {
+  width: 100%;
+  height: 88px;
+}
 .van-nav-bar {
   width: 750px;
   height: 88px;
@@ -243,4 +246,13 @@ span.more {
 .myslide-leave-to {
   visibility: hidden;
 }
+</style>
+
+<style lang="scss">
+a.search{
+  .van-icon-user-o{
+    font-size: 36px;
+  }
+}
+
 </style>

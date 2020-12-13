@@ -8,9 +8,9 @@
         <slot name="desc">{{desc}}</slot>
       </span>
     </div>
-    <router-link v-if="isMore" to>
+    <router-link v-if="isMore" :to="href">
       <span>更多</span>
-      <van-icon name="arrow" color="#969ba3" size="18" />
+      <van-icon name="arrow" color="#969ba3" />
     </router-link>
   </div>
 </template>
@@ -39,24 +39,33 @@ export default class CNavHeader extends Vue {
     font-size: 0;
     border-left: 4px solid #ed424b;
     padding-left: 20px;
+    display:flex;
+    align-items: flex-end;
     span.title {
       font-size: 32px;
       color: #33373d;
       font-weight: 600;
-      vertical-align: middle;
     }
     span.desc {
       font-size: 26px;
       color: #969ba3;
       margin-left: 10px;
-      vertical-align: middle;
     }
   }
   a {
-    font-size: 24px;
+    font-size: 26px;
     color: #969ba3;
     display: flex;
     align-items: center;
+    line-height: 0;
+  }
+}
+</style>
+<style lang="scss">
+.nav{
+  .van-icon-arrow{
+    font-size: 36px;
+    line-height: 0;
   }
 }
 </style>

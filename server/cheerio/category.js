@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 function resolveCategory(str) {
     let data = [];
     let $ = cheerio.load(str, { decodeEntities: false });
-    let len = $('ul.sort-ul').find('li').map(function (i, el) {
+    $('ul.sort-ul').find('li').map(function (i, el) {
         let catList = [];
         $(this).find('div.sort-li-detail a').each(function (i, el) {
             let sub = {

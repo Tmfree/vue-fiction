@@ -32,46 +32,46 @@ import { mapGetters } from "vuex";
 import BackTop from "./backTop.vue";
 @Component({
   components: {
-    BackTop
+    BackTop,
   },
   computed: {
-    ...mapGetters(["searchKW"])
-  }
+    ...mapGetters(["searchKW"]),
+  },
 })
 export default class PullUp extends Vue {
   @Prop({
     type: Boolean,
-    default: true
+    default: true,
   })
   isSkeleton: boolean;
 
   @Prop({
     type: Number,
-    default: 0
+    default: 0,
   })
   page: number;
 
   @Prop({
     type: Number,
-    default: 20
+    default: 20,
   })
   pageSize: number;
 
   @Prop({
     type: Array,
-    default: () => []
+    default: () => [],
   })
   dataList: any[];
 
   @Prop({
     type: Boolean,
-    default: false
+    default: false,
   })
   searchRefresh: boolean;
 
   @Prop({
     type: String,
-    default: ""
+    default: "",
   })
   currSearch: string;
 
@@ -99,7 +99,6 @@ export default class PullUp extends Vue {
   @Watch("dataList")
   onDataListChanged(newValue: any[], oldValue: any[]) {
     if (newValue.length == 0) {
-      this.loading = true;
       return;
     }
     this.loading = false;
@@ -115,7 +114,6 @@ export default class PullUp extends Vue {
   }
 
   private onRefresh() {
-    this.refreshing = true;
     // 清空列表数据
     this.finished = false;
     // 将 loading 设置为 true，表示处于加载状态
@@ -152,7 +150,7 @@ export default class PullUp extends Vue {
 
 <style scoped lang="scss">
 .pull-container {
-  height: 100%;
+  height: calc(100vh - 88px);
   position: relative;
   .van-pull-refresh {
     height: 100%;

@@ -1,7 +1,7 @@
 import { Iuser } from './interface'
 import * as Type from "./type";
 import { ActionTree, MutationTree } from 'vuex'
-import { postLogin, postCollect, postLike, getUserInfo, getCollectList, getLikeList } from "@/request/api";
+import Ajax from "@/request/api";
 import Aes from "@/utils/aes";
 import { setToken } from '@/utils/auth'
 let state: Iuser = {
@@ -38,34 +38,26 @@ let actions: ActionTree<Iuser, any> = {
     async login({ commit }, data = {}) {
         //md5+aes加密
         data.password = Aes.encrypt(data.password);
-        let result = await postLogin(data);
+        let result = await Ajax.login(data);
         if (result.code == 0) {
-            setToken(result.data.token);
+            setToken('User-Token', result.data.token);
             commit(Type.SET_LOGIN_STATUS, true);
             commit(Type.SET_LOGIN_INFO, result);
         }
         return result;
     },
-    async collect({ commit }, data = {}) {
-        let result = await postCollect(data);
-        return result;
-    },
-    async like({ commit }, data = {}) {
-        let result = await postLike(data);
-        return result;
-    },
     async getUserInfo({ commit }, data = {}) {
-        let result = await getUserInfo(data);
+        let result = await Ajax.getUserInfo(data);
         commit(Type.SET_USER_INFO, result);
         return result;
     },
     async getCollectList({ commit }, data = {}) {
-        let result = await getCollectList(data);
+        let result = await Ajax.getCollectList(data);
         commit(Type.SET_COLLECT_LIST, result.data);
         return result;
     },
     async getLikeList({ commit }, data = {}) {
-        let result = await getLikeList(data);
+        let result = await Ajax.getLikeList(data);
         commit(Type.SET_LIKE_LIST, result.data);
         return result;
     }

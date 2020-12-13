@@ -9,17 +9,7 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: '',
-        component: () => import("../views/Home.vue"),
-        meta: {
-          isShowNav: true,
-          isCloseRefresh: false,
-          isStartLoadMore: false,
-          isLogin: false
-        }
-      },
-      {
-        path: 'category',
-        component: () => import("../views/Category.vue"),
+        component: () => import("../views/home/index.vue"),
         meta: {
           isShowNav: true,
           isCloseRefresh: true,
@@ -28,9 +18,29 @@ const routes: Array<RouteConfig> = [
         }
       },
       {
-        path: 'category/detail',
+        path: '/book/list/:id',
+        component: () => import("../views/booklist/index.vue"),
+        meta: {
+          isShowNav: true,
+          isCloseRefresh: true,
+          isStartLoadMore: true,
+          isLogin: false
+        }
+      },
+      {
+        path: 'category',
+        component: () => import("../views/category/index.vue"),
+        meta: {
+          isShowNav: true,
+          isCloseRefresh: true,
+          isStartLoadMore: false,
+          isLogin: false
+        }
+      },
+      {
+        path: 'category/:bname',
         name: "catDetail",
-        component: () => import("../views/CatDetail.vue"),
+        component: () => import("../views/category/detail.vue"),
         meta: {
           isShowNav: true,
           isCloseRefresh: false,
@@ -40,7 +50,7 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: "rank",
-        component: () => import("../views/Rank.vue"),
+        component: () => import("../views/rank/index.vue"),
         meta: {
           isShowNav: true,
           isCloseRefresh: true,
@@ -49,8 +59,8 @@ const routes: Array<RouteConfig> = [
         }
       },
       {
-        path: "rank/:id",
-        component: () => import("../views/RankDetail.vue"),
+        path: "rank/:bname",
+        component: () => import("../views/rank/detail.vue"),
         meta: {
           isShowNav: true,
           isCloseRefresh: false,
@@ -61,17 +71,17 @@ const routes: Array<RouteConfig> = [
       {
         path: "book/:id",
         name: "Book",
-        component: () => import("../views/BookInfo.vue"),
+        component: () => import("../views/book/index.vue"),
         meta: {
           isShowNav: true,
-          isCloseRefresh: false,
+          isCloseRefresh: true,
           isStartLoadMore: false,
           isLogin: false
         }
       },
       {
         path: "search",
-        component: () => import("../views/Search.vue"),
+        component: () => import("../views/search/index.vue"),
         meta: {
           isShowNav: false,
           isCloseRefresh: true,
@@ -84,14 +94,14 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: 'login',
-    component: () => import("../views/Login.vue"),
+    component: () => import("../views/login/index.vue"),
     meta: {
       isLogin: false
     }
   },
   {
     path: '/user',
-    component: () => import("../views/Personal.vue"),
+    component: () => import("../views/person/index.vue"),
     meta: {
       isLogin: false
     }
@@ -106,7 +116,7 @@ router.beforeEach((to, from, next) => {
   // ...
   let { isLogin } = to.meta;
   if (isLogin) {
-    const hasToken = getToken();
+    const hasToken = getToken('User-Token');
     if (hasToken) {
       next();
     } else {
