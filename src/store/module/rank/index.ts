@@ -1,7 +1,7 @@
 import { rank } from './interface'
 import * as Type from './type'
 import { ActionTree, MutationTree } from 'vuex'
-import { getRank, getRankDetail } from "@/request/api"
+import Ajax from "@/request/api"
 let state: rank = {
     rank: [],
     rankDetail: []
@@ -16,12 +16,12 @@ let mutations: MutationTree<rank> = {
 }
 let actions: ActionTree<rank, any> = {
     async getRank({ commit }, data = {}) {
-        let result = await getRank(data);
+        let result = await Ajax.getRank(data);
         commit(Type.SET_RANK, result);
         return result;
     },
     async getRankDetail({ commit }, data = {}) {
-        let result = await getRankDetail(data);
+        let result = await Ajax.getRankDetail(data);
         commit(Type.SET_RANK_DETAIL, result);
         return result;
     }

@@ -54,7 +54,7 @@ export default class Crank extends Vue {
   }
   private async _getRank() {
     let params = {};
-    let result = await this.$Ajax.getRank(params)
+    let result = await this.$Ajax.getRank(params);
     this.rank = result;
   }
 }
