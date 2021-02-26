@@ -4,8 +4,8 @@ const bodyParser = require('body-parser')
 const app = express();
 const router = require('./router/index')
 const userToken = require('./utils/userToken')
-const cache = require('apicache').middleware
-const crawRouter = require('./router/craw')
+//const cache = require('apicache').middleware
+//const crawRouter = require('./router/craw')
 const { connect } = require('./utils/connect')
 const { graphqlHTTP } = require('express-graphql')
 const graphschema = require('./graphql/schema')
@@ -17,13 +17,13 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Origin': req.headers.origin || '*',
         'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type,Authorization',
-        'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS',
-        'Content-Type': 'application/json; charset=utf-8'
+        'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS'
     })
     req.method === 'OPTIONS' ? res.status(204).end() : next()
 })
 //静态资源
 app.use('/static', express.static(path.join(__dirname, 'static')))
+
 // body parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -44,7 +44,7 @@ app.use(async (req, res, next) => {
     req.query.token = token
     next()
 })
-app.use('/craw', crawRouter)
+//app.use('/craw', crawRouter)
 app.use('/api', router)
 
 const port = process.env.PORT || 3000

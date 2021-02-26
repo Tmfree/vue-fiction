@@ -7,7 +7,7 @@ class UserControler {
         try {
             let { account } = params
             let result = (await UserModel.find({ 'uAccount': account }))[0]
-            return result
+            return result ? result : {}
         } catch (error) {
             console.log(error)
         }

@@ -15,7 +15,7 @@ export const funList = [
         id: 3,
         text: "免费",
         className: "icon-free",
-        href: "/category"
+        href: "/book/list/免费小说"
     },
     {
         id: 4,
