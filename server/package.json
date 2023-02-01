@@ -15,7 +15,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^15.4.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.4",
+    "mongoose": "^5.13.15",
     "nodemon": "^2.0.6",
     "uuid": "^8.3.2"
   }
